@@ -32,38 +32,37 @@
 	<button class="btn mt-4">클릭</button>
 </div> -->
 <div class="container mx-auto">
-	<img src="logo.png" alt="로고" class="mt-20 mx-auto">
+	<a href="./"><img src="logo.png" alt="로고" class="mt-20 mx-auto"></a>
 	<!-- <div class="mx-auto bg-red-500" id="main"></div> -->
 	<form action="login" method="post" onsubmit="return validateForm()">
 		<div class="block justify-center h-full w-full">
 			<div>
 				<label for="id" class="mx-auto block mt-10 mb-2 font-medium text-gray-900 dark:text-white">ID</label>
 				<input type="text" id="id" name="user_id"
-				class="mx-auto block mt-5 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-green-500 focus:border-green-500 mx-20 p-5 focus:ring-2 focus:outline-none" placeholder="ID">
+				class="mx-auto block mt-5 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 mx-20 p-5 focus:ring-2 focus:outline-none" placeholder="ID">
 				</input>
 			</div>
 			<div>
 				<label for="pwd" class="mx-auto block mt-5 mb-2 font-medium text-gray-900 dark:text-white">Password</label>
 				<input type="password" id="pwd" name="user_password"
-					class="mx-auto block mt-5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500 mx-20 p-5 focus:ring-2 focus:outline-none" 
+					class="mx-auto block mt-5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 mx-20 p-5 focus:ring-2 focus:outline-none" 
 					placeholder="Password">
 				</input>
 			</div>
-			<label id="errorMsg" class="mx-auto block mt-5 mb-5" style="color: red; font-size: 20px;"> &nbsp;</label>
+			<label id="errorMsg" class="mx-auto block mt-5 mb-5" style="color: red; font-size: 20px;" th:text="${error}"></label>
 			<!-- <div class="flex justify-center">
 			</div> -->
-			<button type="submit" class="mx-auto block py-5 font-semibold rounded-lg shadow-md text-white bg-green-500 hover:bg-green-500"
-			onclick="submit_check();">
+			<button type="submit" class="mx-auto block py-5 font-semibold rounded-lg shadow-md text-white bg-blue-500 hover:bg-blue-500">
 				로그인
 			</button>
 		</div>
 	</form>
 	<ul class="flex justify-center mt-5">
-		<li><a target="_blank" href="https://nid.naver.com/user2/help/pwInquiry?lang=ko_KR" class="">비밀번호 찾기</a></li>
-		<li><a target="_blank" class="">&nbsp;&nbsp;|&nbsp;&nbsp;</a></li>
-		<li><a target="_blank" href="https://nid.naver.com/user2/help/idInquiry?lang=ko_KR" class="">아이디 찾기</a></li>
-		<li><a target="_blank" class="">&nbsp;&nbsp;|&nbsp;&nbsp;</a></li>
-		<li><a target="_blank" href="https://nid.naver.com/user2/join/agree?lang=ko_KR&realname=N" class="">회원가입</a></li>
+		<li><a href="/asklepios/findId" class="">아이디 찾기</a></li>
+		<li><a class="">&nbsp;&nbsp;|&nbsp;&nbsp;</a></li>
+		<li><a href="/asklepios/findPw" class="">비밀번호 찾기</a></li>
+		<li><a class="">&nbsp;&nbsp;|&nbsp;&nbsp;</a></li>
+		<li><a href="https://nid.naver.com/user2/join/agree?lang=ko_KR&realname=N" class="">회원가입</a></li>
 	</ul>
 </div>
 </body>

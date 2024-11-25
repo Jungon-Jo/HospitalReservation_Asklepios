@@ -42,11 +42,15 @@ public class IM_UserService implements IF_UserService{
                 cnt++;
             }
         }
+
         if(cnt > 0){
             String register_number = usermapper.selectRegnum(user_name);
             if(reg_num.equals(register_number)){
 //                System.out.println("일치");
-                return usermapper.selectId(reg_num);
+                String user_id = usermapper.selectId(reg_num);
+                int idx = user_id.length()/2;
+                String str = user_id.substring(0, idx) + user_id.replaceAll(".","*").substring(idx);
+                return str;
             }else {
 //                System.out.println("불일치");
                 return null;

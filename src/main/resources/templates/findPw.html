@@ -10,7 +10,7 @@
 			width: 1920px;
 			font-size: 30px;
 		}
-		#user_name, #user_id, #user_email, label, button {
+		#user_name, #user_id, label, button {
 			width: 500px;
 		}
 		input:focus::placeholder {
@@ -24,6 +24,13 @@
 		#reg_first, #reg_last {
 			width: 200px;
 		}
+		#user_email, #email_code {
+			width: 350px;
+			margin-right: 50px;
+		}
+		#send_code, #confirm_code {
+			width: 100px;
+		}
 		span {
 			width: 100px;
 			font-size: 40px;
@@ -32,38 +39,45 @@
 </head>
 <body>
 <div class="container mx-auto block">
-	<a href="board"><img src="../static/logo.png" alt="로고" class="mt-72 mb-12 mx-auto"></a>
-	<div for="info" class="mx-px flex justify-center mt-5 font-medium text-4xl font-bold text-black-500 dark:text-white">회원 정보를 입력하세요.</div>
-	<form action="findId" method="post" onsubmit="return validateForm()">
+	<a href="./"><img src="logo.png" alt="로고" class="mt-48 mb-5 mx-auto"></a>
+	<div for="info" class="mx-px flex justify-center font-medium text-4xl font-bold text-black-500 dark:text-white">회원 정보를 입력하세요.</div>
+	<form action="findPw" method="post">
 		<div class="block justify-center mb-10">
 			<div>
-				<label for="user_name" class="mx-auto block mt-10 mb-2 font-medium text-gray-900 dark:text-white">성명</label>
-				<input type="text" id="user_name" name="user_name"
-				class="mx-auto block mt-5 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-green-500 focus:border-green-500 p-3 focus:ring-2 focus:outline-none" 
-				placeholder="이름">
-				</input>
-			</div>
-			<div>
-				<label for="reg_first" class="mx-auto block mt-5 font-medium text-gray-900 dark:text-white">아이디</label>
+				<label for="user_id" class="mx-auto block mt-10 font-medium text-gray-900 dark:text-white">아이디</label>
 				<div class="mx-auto flex justify-center items-center">
           <input type="text" id="user_id" name="user_id"
-          class="mx-auto block mt-5 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-green-500 focus:border-green-500 p-3 focus:ring-2 focus:outline-none" 
+          class="mx-auto block mt-5 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 focus:ring-2 focus:outline-none"
           placeholder="아이디">
           </input>
 				</div>
 			</div>
       <div>
-        <label for="reg_first" class="mx-auto block mt-5 font-medium text-gray-900 dark:text-white">이메일</label>
+        <label for="user_email" class="mx-auto block mt-5 font-medium text-gray-900 dark:text-white">이메일</label>
         <div class="mx-auto flex justify-center items-center">
           <input type="text" id="user_email" name="user_email"
-          class="mx-auto block mt-5 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-green-500 focus:border-green-500 p-3 focus:ring-2 focus:outline-none" 
+          class="mx-px block mt-5 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 focus:ring-2 focus:outline-none"
           placeholder="example@example.com">
           </input>
+					<input type="button" id="send_code"  onclick ="send()"
+								 class="mt-5 py-3 font-semibold rounded-lg shadow-md text-white bg-blue-500 hover:bg-blue-700"
+								 value="전송">
+				</div>
+				<div>
+					<label id="sendMsg" class="mx-auto block mt-3" style="color: red; font-size: 20px;">&nbsp;</label>
 				</div>
       </div>
-			<label id="errorMsg" class="mx-auto block mt-5 mb-5" style="color: red; font-size: 20px;" th:text="${error}"></label>
-			<button type="submit" class="mx-auto block py-5 font-semibold rounded-lg shadow-md text-white bg-green-500 hover:bg-green-500"
-			onclick="submit_check();">
+			<div>
+				<label for="email_code" class="mx-auto block font-medium text-gray-900 dark:text-white">인증번호</label>
+				<div class="mx-auto flex justify-center items-center">
+					<input type="text" id="email_code" name="email_code"
+								 class="mx-px mt-5 block bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 focus:ring-2 focus:outline-none">
+					<input type="button" id="confirm_code" onclick="check()"
+								 class="mt-5 py-3 font-semibold rounded-lg shadow-md text-white bg-blue-500 hover:bg-blue-700" value="확인">
+				</div>
+			</div>
+			<label id="errorMsg" class="mx-auto block py-3" style="color: red; font-size: 20px;">&nbsp;</label>
+			<button type="submit" class="mx-auto block py-5 font-semibold rounded-lg shadow-md text-white bg-blue-500 hover:bg-blue-700">
 				임시 비밀번호 발급
 			</button>
       <!-- 비밀번호 찾기를 누르면 메일로 임시번호를  -->
@@ -72,28 +86,52 @@
 </div>
 </body>
 <script>
-	function validateForm() {
-		// 입력 폼 아이디값 담기
-		let user_name = document.getElementById("user_name").value;
-		let reg_f = document.getElementById("reg_first").value;
-		let reg_l = document.getElementById("reg_last").value;
-		if (user_name == "") {
-			document.getElementById('errorMsg').innerText = "🚫 모든 입력값은 필수 입니다.(성명 미기입)"
-			document.getElementById('user_name').focus();
+	function check(){
+		let user_id = document.getElementById('user_id').value;
+
+		$.ajax({
+			url: 'findEmail',
+			data: user_id,
+			type: 'POST',
+
+		})
+
+
+
+
+
+		let email_code = document.getElementById("email_code").value;
+		if(email_code == "12345"){
+			document.getElementById('errorMsg').innerText = "☑️ 인증되었습니다.";
+			document.getElementById('errorMsg').style.color = "#3B82F6";
+			return true;
+		}else{
+			document.getElementById('errorMsg').innerText = "🚫 인증번호가 일치하지 않습니다.";
+			document.getElementById('errorMsg').style.color = "red";
 			return false;
 		}
-		else if(reg_f == ""){
-			document.getElementById('errorMsg').innerText = "🚫 모든 입력값은 필수 입니다.(주민등록번호 미기입)"
-			document.getElementById('reg_first').focus();
-			return false;	
+	}
+
+	function send(){
+		let user_id = document.getElementById('user_id').value;
+		let user_email = document.getElementById('user_email').value;
+
+		if(user_id == ""){
+			document.getElementById('sendMsg').innerText = "🚫 모든 입력값은 필수 입니다.(아이디 미기입)";
+			document.getElementById('user_id').focus();
+			document.getElementById('sendMsg').style.color = "red";
 		}
-		else if(reg_l == ""){
-			document.getElementById('errorMsg').innerText = "🚫 모든 입력값은 필수 입니다.(주민등록번호 미기입)"
-			document.getElementById('reg_last').focus();
-			return false;	
+		else if(user_email == ""){
+			document.getElementById('sendMsg').innerText = "🚫 모든 입력값은 필수 입니다.(이메일 미기입)";
+			document.getElementById('user_email').focus();
+			document.getElementById('sendMsg').style.color = "red";
 		}
-		return true;
-	};
+		else{
+			document.getElementById('sendMsg').innerText = "☑️ 인증번호가 발송되었습니다.";
+			document.getElementById('sendMsg').style.color = "#3B82F6";
+		}
+
+	}
 
 </script>
 </html>

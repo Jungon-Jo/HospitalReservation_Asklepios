@@ -24,7 +24,7 @@ public class UserController {
     @PostMapping("/login")
     public String login(@ModelAttribute UserVO userVO, Model model) {
         if(userService.login(userVO)){
-            return "board/main";
+            return "redirect:/bboard_health";
         }else {
             String error = "🚫 아이디 또는 비밀번호가 잘못 되었습니다.";
             model.addAttribute("error", error);
@@ -48,12 +48,20 @@ public class UserController {
             model.addAttribute("error", error);
             return "findId";
         }else{
-            System.out.println(user_name + "의 아이디는 " + user_id);
+//            System.out.println(user_name + "의 아이디는 " + user_id);
             model.addAttribute("user_name", user_name);
             model.addAttribute("user_id", user_id);
             return "resultId";
         }
 
+    }
+    @GetMapping("/findPw")
+    public String findPw() {
+        return "findPw";
+    }
+    @PostMapping("/findPw")
+    public String findPw(@ModelAttribute UserVO userVO, Model model) {
+        return "resultPw";
     }
 
 }

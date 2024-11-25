@@ -6,4 +6,16 @@
     <select id="selectPwd" parameterType="com.asklepios.hospitalreservation_asklepios.VO.UserVO" resultType="String">
         SELECT user_password FROM users WHERE user_id = #{user_id}
     </select>
+
+    <select id="selectRegnum" parameterType="String" resultType="String">
+        SELECT user_register_number FROM users WHERE user_name = #{user_name}
+    </select>
+
+    <select id="selectId" parameterType="String" resultType="String">
+        SELECT user_id FROM users WHERE user_register_number = ${user_register_number}
+    </select>
+
+    <select id="selectAllName" resultType="com.asklepios.hospitalreservation_asklepios.VO.UserVO">
+        SELECT user_name FROM users
+    </select>
 </mapper>

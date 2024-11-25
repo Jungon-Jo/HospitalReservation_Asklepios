@@ -32,14 +32,14 @@
 </head>
 <body>
 <div class="container mx-auto block">
-	<a href="board"><img src="logo_plz.png" alt="로고" class="mt-72 mb-12 mx-auto"></a>
+	<a href="./"><img src="logo_plz.png" alt="로고" class="mt-72 mb-12 mx-auto"></a>
 	<div for="info" class="mx-px flex justify-center mt-5 font-medium text-4xl font-bold text-black-500 dark:text-white">회원 정보를 입력하세요.</div>
 	<form action="findId" method="post" onsubmit="return validateForm()">
 		<div class="block justify-center">
 			<div>
 				<label for="user_name" class="mx-auto block mt-10 mb-2 font-medium text-gray-900 dark:text-white">성명</label>
 				<input type="text" id="user_name" name="user_name"
-				class="mx-auto block mt-5 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-green-500 focus:border-green-500 p-3 focus:ring-2 focus:outline-none" 
+				class="mx-auto block mt-5 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 focus:ring-2 focus:outline-none"
 				placeholder="이름">
 				</input>
 			</div>
@@ -47,17 +47,16 @@
 				<label for="reg_first" class="mx-auto block mt-5 font-medium text-gray-900 dark:text-white">주민등록번호</label>
 				<div class="mx-auto flex justify-center items-center">
 					<input type="text" id="reg_first" name="reg_first" maxlength="6"
-						class="mx-px flex justify-center mt-5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500 p-3 focus:ring-2 focus:outline-none">
+						class="mx-px flex justify-center mt-5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 focus:ring-2 focus:outline-none">
 					</input>
 					<span class="mx-px flex justify-center">ㅡ</span>
 					<input type="password" id="reg_last" name="reg_last" maxlength="7"
-						class="mx-px flex justify-center mt-5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500 p-3 focus:ring-2 focus:outline-none">
+						class="mx-px flex justify-center mt-5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 focus:ring-2 focus:outline-none">
 					</input>
 				</div>
 			</div>
 			<label id="errorMsg" class="mx-auto block mt-5 mb-5" style="color: red; font-size: 20px;" th:text="${error}"></label>
-			<button type="submit" class="mx-auto block py-5 font-semibold rounded-lg shadow-md text-white bg-green-500 hover:bg-green-500"
-			onclick="submit_check();">
+			<button type="submit" class="mx-auto block py-5 font-semibold rounded-lg shadow-md text-white bg-blue-500 hover:bg-blue-500">
 				아이디 찾기
 			</button>
 		</div>

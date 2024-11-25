@@ -10,10 +10,6 @@ import java.util.List;
 @Mapper
 public interface IF_BoardMapper {
     public void insertOne(BoardVO boardVO);
-
-@Mapper
-public interface IF_BoardMapper {
-    public void insertOne(BoardVO boardVO);
     public List<BoardVO> selectHealth(PageVO pagevo);
     public List<BoardVO> selectCampaign(PageVO pagevo);
     public List<BoardVO> selectMed(PageVO pagevo);

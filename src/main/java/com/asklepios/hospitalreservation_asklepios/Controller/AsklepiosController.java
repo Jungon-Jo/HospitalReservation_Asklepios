@@ -8,7 +8,7 @@ public class AsklepiosController {
 
     @GetMapping("/")
     public String home() {
-        return "call";
+        return "home";
     }
 
 //    @GetMapping("/login")
