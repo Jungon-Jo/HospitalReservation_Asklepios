@@ -32,7 +32,7 @@
 	<button class="btn mt-4">클릭</button>
 </div> -->
 <div class="container mx-auto">
-	<img src="logo.png" alt="로고" class="mt-20 mx-auto">
+	<img src="../static/logo.png" alt="로고" class="mt-20 mx-auto">
 	<!-- <div class="mx-auto bg-red-500" id="main"></div> -->
 	<form action="login" method="post" onsubmit="return validateForm()">
 		<div class="block justify-center h-full w-full">
@@ -49,7 +49,7 @@
 					placeholder="Password">
 				</input>
 			</div>
-			<label id="errorMsg" class="mx-auto block mt-5 mb-5" style="color: red; font-size: 20px;"> &nbsp;</label>
+			<label id="errorMsg" class="mx-auto block mt-5 mb-5" style="color: red; font-size: 20px;" th:text="${error}"></label>
 			<!-- <div class="flex justify-center">
 			</div> -->
 			<button type="submit" class="mx-auto block py-5 font-semibold rounded-lg shadow-md text-white bg-green-500 hover:bg-green-500"
@@ -59,11 +59,11 @@
 		</div>
 	</form>
 	<ul class="flex justify-center mt-5">
-		<li><a target="_blank" href="https://nid.naver.com/user2/help/pwInquiry?lang=ko_KR" class="">비밀번호 찾기</a></li>
-		<li><a target="_blank" class="">&nbsp;&nbsp;|&nbsp;&nbsp;</a></li>
-		<li><a target="_blank" href="https://nid.naver.com/user2/help/idInquiry?lang=ko_KR" class="">아이디 찾기</a></li>
-		<li><a target="_blank" class="">&nbsp;&nbsp;|&nbsp;&nbsp;</a></li>
-		<li><a target="_blank" href="https://nid.naver.com/user2/join/agree?lang=ko_KR&realname=N" class="">회원가입</a></li>
+		<li><a href="/asklepios/findId" class="">아이디 찾기</a></li>
+		<li><a class="">&nbsp;&nbsp;|&nbsp;&nbsp;</a></li>
+		<li><a href="https://nid.naver.com/user2/help/idInquiry?lang=ko_KR" class="">비밀번호 찾기</a></li>
+		<li><a class="">&nbsp;&nbsp;|&nbsp;&nbsp;</a></li>
+		<li><a href="https://nid.naver.com/user2/join/agree?lang=ko_KR&realname=N" class="">회원가입</a></li>
 	</ul>
 </div>
 </body>

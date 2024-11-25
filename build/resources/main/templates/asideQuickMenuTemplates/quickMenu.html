@@ -7,11 +7,11 @@
 </head>
 <style>
     .quickMenu {
-        width: 300px;
-        height: 500px;
+        width: 200px;
+        /*height: 500px;*/
         position: sticky;
         float: right;
-        border: 1px black solid;
+        /*border: 1px black solid;*/
     }
     .profileImage {
         border-radius: 50%;
@@ -24,22 +24,30 @@
 </style>
 <body>
     <aside class="quickMenu">
-        <div class="bg-green-500 border border-gray-200 rounded-lg shadow dark:bg-green-800 dark:border-gray-700" style="border: 1px black solid">
-            <div class="profileImage" style="border: 2px black solid">
+        <div class="bg-green-500 border border-gray-200 rounded-lg shadow dark:bg-green-800 dark:border-gray-700">
+            <div class="profileImage">
                 <a href="myPage">
                     <img src="../../static/defaultImage.png" alt="기본 프로필">
                 </a>
             </div>
             <div class="p-5">
-                <hr>
-                <p>회원 이름 : <span></span></p>
-                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
-                <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Read more
-                    <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                    </svg>
-                </a>
+                <hr style="margin-bottom: 10px">
+                <h1>회원 정보</h1>
+                <p style="font-size: 14px">회원 이름 : ${user_id}</p>
+                <p style="font-size: 14px">이메일 : ${user_mail}</p>
+                <hr style="margin-top: 10px; margin-bottom: 10px">
+                <h1><a href="/reservation">예약 현황</a></h1>
+                <p style="font-size: 14px">예약 대기 : ${}</p>
+                <p style="font-size: 14px">예약 승인 : ${}</p>
+                <hr style="margin-top: 10px; margin-bottom: 10px">
+                <a href="/myPage">마이페이지</a>
+                <hr style="margin-top: 10px; margin-bottom: 10px">
+                <a href="/reservation">예약하기</a>
+                <hr style="margin-top: 10px; margin-bottom: 10px">
+                <a href="/vaccinationInfo">백신정보</a>
+                <hr style="margin-top: 10px; margin-bottom: 10px">
+                <a href="/hospitalInfo">병원검색</a>
+                <hr style="margin-top: 10px; margin-bottom: 10px">
             </div>
         </div>
     </aside>

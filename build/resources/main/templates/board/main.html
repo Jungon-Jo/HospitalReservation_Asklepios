@@ -105,7 +105,9 @@
                         <tr th:each="boardvo:${boardlist}">
                             <td th:text="${boardvo.board_sequence}"></td>
                             <td th:text="${boardvo.board_user_id}"></td>
-                            <td th:text="${boardvo.board_title}"></td>
+                            <td >
+                                <a th:text="${boardvo.board_title}" th:href="@{modboard(no=${boardvo.board_sequence})}"></a>
+                            </td>
                             <td th:text="${#strings.substring(boardvo.board_date,0,10)}"></td>
                             <td th:text="${boardvo.board_viewcount}"></td>
                             <td th:text="${boardvo.board_goodcount}"></td>
@@ -113,13 +115,13 @@
                         <tr>
                             <td colspan="6">
                                 <span th:if= "${pageVO.prev}">
-                                    <a href="bboard?page=${pagevo.startPage-1}">[이전]</a>
+                                    <a th:href="@{bboard_health(page=${pageVO.startPage})}">[이전]</a>
                                 </span>
-<!--                                <span th:each="idx:${#numbers.sequence(pagevo.startNo,pagevo,endNo)}">-->
-<!--                                    <a href="board?page=${idx}">${idx}</a>-->
-<!--                                </span>-->
+                                <span th:each="idx:${#numbers.sequence(pageVO.startPage,pageVO.endPage)}">
+                                    <a th:text="${idx}" th:href="@{bboard_health(page=${idx})}"></a>
+                                </span>
                                 <span th:if="${pageVO.next}">
-                                <a href="board?page=${pagevo.endPage+1}">[다음]</a>
+                                    <a th:href="@{bboard_health(page=${pageVO.endPage+1})}">[다음]</a>
                                 </span>
                             </td>
 

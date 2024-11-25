@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<style>
+		body {
+			width: 1920px;
+			font-size: 30px;
+		}
+		#user_name, #user_id, #user_email, label, button {
+			width: 500px;
+		}
+		input:focus::placeholder {
+			color: transparent;
+		}
+		li {
+			display: inline-block;
+			font-size: 25px;
+			color: rgb(138, 137, 137);
+		}
+		#reg_first, #reg_last {
+			width: 200px;
+		}
+		span {
+			width: 100px;
+			font-size: 40px;
+		}
+	</style>
+</head>
+<body>
+<div class="container mx-auto block">
+	<a href="board"><img src="../static/logo.png" alt="로고" class="mt-72 mb-12 mx-auto"></a>
+	<div for="info" class="mx-px flex justify-center mt-5 font-medium text-4xl font-bold text-black-500 dark:text-white">회원 정보를 입력하세요.</div>
+	<form action="findId" method="post" onsubmit="return validateForm()">
+		<div class="block justify-center mb-10">
+			<div>
+				<label for="user_name" class="mx-auto block mt-10 mb-2 font-medium text-gray-900 dark:text-white">성명</label>
+				<input type="text" id="user_name" name="user_name"
+				class="mx-auto block mt-5 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-green-500 focus:border-green-500 p-3 focus:ring-2 focus:outline-none" 
+				placeholder="이름">
+				</input>
+			</div>
+			<div>
+				<label for="reg_first" class="mx-auto block mt-5 font-medium text-gray-900 dark:text-white">아이디</label>
+				<div class="mx-auto flex justify-center items-center">
+          <input type="text" id="user_id" name="user_id"
+          class="mx-auto block mt-5 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-green-500 focus:border-green-500 p-3 focus:ring-2 focus:outline-none" 
+          placeholder="아이디">
+          </input>
+				</div>
+			</div>
+      <div>
+        <label for="reg_first" class="mx-auto block mt-5 font-medium text-gray-900 dark:text-white">이메일</label>
+        <div class="mx-auto flex justify-center items-center">
+          <input type="text" id="user_email" name="user_email"
+          class="mx-auto block mt-5 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-green-500 focus:border-green-500 p-3 focus:ring-2 focus:outline-none" 
+          placeholder="example@example.com">
+          </input>
+				</div>
+      </div>
+			<label id="errorMsg" class="mx-auto block mt-5 mb-5" style="color: red; font-size: 20px;" th:text="${error}"></label>
+			<button type="submit" class="mx-auto block py-5 font-semibold rounded-lg shadow-md text-white bg-green-500 hover:bg-green-500"
+			onclick="submit_check();">
+				임시 비밀번호 발급
+			</button>
+      <!-- 비밀번호 찾기를 누르면 메일로 임시번호를  -->
+		</div>
+	</form>
+</div>
+</body>
+<script>
+	function validateForm() {
+		// 입력 폼 아이디값 담기
+		let user_name = document.getElementById("user_name").value;
+		let reg_f = document.getElementById("reg_first").value;
+		let reg_l = document.getElementById("reg_last").value;
+		if (user_name == "") {
+			document.getElementById('errorMsg').innerText = "🚫 모든 입력값은 필수 입니다.(성명 미기입)"
+			document.getElementById('user_name').focus();
+			return false;
+		}
+		else if(reg_f == ""){
+			document.getElementById('errorMsg').innerText = "🚫 모든 입력값은 필수 입니다.(주민등록번호 미기입)"
+			document.getElementById('reg_first').focus();
+			return false;	
+		}
+		else if(reg_l == ""){
+			document.getElementById('errorMsg').innerText = "🚫 모든 입력값은 필수 입니다.(주민등록번호 미기입)"
+			document.getElementById('reg_last').focus();
+			return false;	
+		}
+		return true;
+	};
+
+</script>
+</html>
+<!-- 
+https://velog.io/@yujinaa/spring-%ED%8C%80%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%9B%B9%EC%82%AC%EC%9D%B4%ED%8A%B8-%EC%A0%9C%EC%9E%91-10.-%EA%B4%80%EB%A6%AC%EC%9E%90-%ED%8E%98%EC%9D%B4%EC%A7%80 
+https://velog.io/@wlsgur1533/%EC%9D%B4%EB%A9%94%EC%9D%BC-%EC%9D%B8%EC%A6%9D%ED%95%98%EA%B8%B0
+https://velog.io/@kjh950330/%ED%9A%8C%EC%9B%90-%EC%9E%84%EC%8B%9C-%EB%B9%84%EB%B0%80%EB%B2%88%ED%98%B8-%EC%A0%84%EC%86%A1-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84
+https://velog.io/@nick6253/%EC%9E%84%EC%8B%9C-%EB%B9%84%EB%B0%80%EB%B2%88%ED%98%B8-%EB%B0%9C%EA%B8%89-%EA%B5%AC%ED%98%84SMTP
+https://chaereemee.tistory.com/9
+https://xetown.com/tips/1023190 (형식)
+-->
