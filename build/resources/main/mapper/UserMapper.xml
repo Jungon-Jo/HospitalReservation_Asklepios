@@ -12,10 +12,19 @@
     </select>
 
     <select id="selectId" parameterType="String" resultType="String">
-        SELECT user_id FROM users WHERE user_register_number = ${user_register_number}
+        SELECT user_id FROM users WHERE user_register_number = #{user_register_number}
     </select>
 
     <select id="selectAllName" resultType="com.asklepios.hospitalreservation_asklepios.VO.UserVO">
         SELECT user_name FROM users
     </select>
+
+    <select id="selectEmail" parameterType="String" resultType="String">
+        SELECT user_email FROM users WHERE user_id = #{user_id}
+    </select>
+
+    <update id="updatePwd" parameterType="String">
+        UPDATE users SET user_password = #{pwd} WHERE user_id=#{user_id}
+    </update>
+
 </mapper>
