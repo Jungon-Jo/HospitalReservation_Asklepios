@@ -383,8 +383,8 @@
                 </tr>
                 <tr>
                     <td><input type="submit" value="글 수정" ></td>
-<!--                    <td th:if="likeVO.liked==true"><button onclick="board_like()"><i class="fa-solid fa-heart"></i></button></td>-->
-<!--                    <td th:if="likeVO.liked==false"><button onclick="board_like()"><i class="fa-regular fa-heart"></i></button></td>-->
+                    <td th:if="likeVO.liked==true"><button onclick="board_like()" style="width: 70px"><i class="fa-solid fa-heart"></i></button></td>
+                    <td th:if="likeVO.liked==false"><button onclick="board_like()" style="width: 70px"><i class="fa-regular fa-heart"></i></button></td>
                 </tr>
                 <tr>
                     <td colspan="2">
@@ -413,7 +413,31 @@
 </body>
 </html>
 <script>
+    var userid=document.getElementsByName("board_user_id")[0].value;
+    var boardseq=document.getElementsByName("board_sequence")[0].value;
+    var likevo={
+        "id=":userid,
+        "board_seq": boardseq
+    }
+
     function board_like(){
 
+    }
+    function makeRequest(url,userid){
+        httpRequest=new XMLHttpRequest();
+        if(!httpRequest){
+            alert("실패")
+            return false;
+        }
+        httpRequest.open('POST','/like',true);
+        httpRequest.send(JSON.stringify(likevo));
+        httpRequest.onreadystatechange=()=>{
+            if(httpRequest.readyState===XMLHttpRequest.DONE&&httpRequest.status===200){
+
+            }else{
+
+            }
+
+        }
     }
 </script>

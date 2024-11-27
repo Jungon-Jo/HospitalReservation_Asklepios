@@ -1,0 +1,134 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script
+            src="https://kit.fontawesome.com/68dda164c0.js"
+            crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0ed2bd9a4fc16e942f081b64d8391986"></script>
+</head>
+<link rel="stylesheet" href="home.css" />
+<style>
+    table{
+        margin-top: 100px;
+        margin-left: 100px;
+        width: 800px;
+        font-size: 20px;
+    }
+    table,td{
+        border: 1px solid;
+    }
+    #search{
+        width: 100px;
+        height: 40px;
+        font-size: 15px;
+        border: 0;
+        outline: 1.5px rgb(19, 97, 3) solid;
+        border-radius: 5px;
+        padding-left: 10px;
+        background-color: rgb(60, 113, 47);
+    }
+</style>
+<body>
+<div th:replace="include/topinclude"></div>
+
+
+<aside id="aside1">
+
+</aside>
+<section>
+    <div>
+        <form action="#">
+            <table>
+                <tr>
+                    <td width="20%"><label>지역:</label></td>
+                    <td>
+                        <select>
+                            <option value="1">수원시</option>
+                            <option value="2">용인시</option>
+                            <option value="3">의왕시</option>
+                            <option value="4">화성시</option>
+                            <option value="5">시흥시</option>
+                            <option value="6">고양시</option>
+                            <option value="7">안산시</option>
+                            <option value="8">이천시</option>
+                            <option value="9">안양시</option>
+                            <option value="10">평택시</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%"><label>진료과:</label></td>
+                    <td>
+                        <select>
+                            <option value="1">내과</option>
+                            <option value="2">이비인후과</option>
+                            <option value="3">정형외과</option>
+                            <option value="4">성형외과</option>
+                            <option value="5">정신건강의학과</option>
+                            <option value="6">피부과</option>
+                            <option value="7">안과</option>
+                            <option value="8">소아청소년과</option>
+                            <option value="9">산부인과</option>
+                            <option value="10">비뇨기과</option>
+                            <option value="11">외과</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%"><label>진료시간:</label></td>
+                    <td>
+                        <select name="" id="">
+                            <option value="1">주간</option>
+                            <option value="1">야간</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>주말진료:</td>
+                    <td>
+                        <select name="">
+                            <option value="1">주말진료</option>
+                            <option value="2">주말휴무</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input id="search" type="submit" value="검색하기"></td>
+                </tr>
+            </table>
+        </form>
+        <table id="result">
+            <thead>
+                <tr>
+                    <td>병원명</td>
+                    <td>운영시간</td>
+                    <td>전화번호</td>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr ></tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="map" style="width:500px;height:400px;"></div>
+
+</section>
+<aside id="aside2"></aside>
+<footer id="ad">
+    <h1>광고</h1>
+</footer>
+<footer id="footer">
+    <h1>footer</h1>
+</footer>
+
+</body>
+</html>
+
+
+

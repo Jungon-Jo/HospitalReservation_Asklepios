@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface IF_BoardService {
     public void addBoard(BoardVO boardVO) throws Exception;
+    public List<BoardVO> boardAll(PageVO pagevo) throws Exception;
     public List<BoardVO> boardHealthList(PageVO pagevo)throws Exception;
     public List<BoardVO> boardCampaignList(PageVO pagevo)throws Exception;
     public List<BoardVO> boardMedList(PageVO pagevo)throws Exception;

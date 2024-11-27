@@ -23,6 +23,16 @@ public class HomeController {
         return "home";
     }
 
+    @GetMapping("/bboard_all")
+    public String board_all(Model model, @ModelAttribute PageVO pagevo) throws Exception{
+        if(pagevo.getPage()==null){
+            pagevo.setPage(1);
+        }
+        pagevo.setTotalCount(boardService.boardCount());
+        List<BoardVO> boardlist=boardService.boardAll(pagevo);
+        model.addAttribute("boardlist", boardlist);
+        return "board/main";
+    }
 
     @GetMapping("/bboard_health")
     public String board_health(Model model, @ModelAttribute PageVO pagevo) throws Exception {

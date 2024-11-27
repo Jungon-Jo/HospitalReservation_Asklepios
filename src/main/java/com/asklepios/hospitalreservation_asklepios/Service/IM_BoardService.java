@@ -31,6 +31,11 @@ public class IM_BoardService implements IF_BoardService{
     }
 
     @Override
+    public List<BoardVO> boardAll(PageVO pagevo) throws Exception {
+        return boardMapper.selectAll(pagevo);
+    }
+
+    @Override
     public List<BoardVO> boardHealthList(PageVO pagevo) {
         return boardMapper.selectHealth( pagevo);
     }
