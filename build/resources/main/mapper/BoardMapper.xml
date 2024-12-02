@@ -6,6 +6,9 @@
     <insert id="insertOne" parameterType="com.asklepios.hospitalreservation_asklepios.VO.BoardVO" >
         insert into testboard values(nextval(board_sequence),#{board_user_id},#{board_category},#{board_title},#{board_content},#{board_binary},default,default,default)
     </insert>
+    <select id="selectAll" resultType="com.asklepios.hospitalreservation_asklepios.VO.BoardVO">
+        select * from testboard where board_sequence between #{startNo} and #{endNo}
+    </select>
     <select id="selectHealth" resultType="com.asklepios.hospitalreservation_asklepios.VO.BoardVO">
         select * from testboard where board_category='오늘의 건강' and board_sequence between #{startNo} and #{endNo}
     </select>
@@ -30,4 +33,7 @@
     <update id="plusViewCount" >
         update testboard set board_viewcount=#{board_viewcount} where board_sequence=#{board_sequence}
     </update>
+    <select id="likeCheck" >
+        select board_like_check from boardlike where board_sequenc=#{board_sequence} and board_user_id=#{board_user_id}
+    </select>
 </mapper>

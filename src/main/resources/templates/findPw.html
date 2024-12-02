@@ -71,8 +71,8 @@
           placeholder="example@example.com">
           </input>
 					<input type="button" id="send_code"  onclick ="send()"
-								 class="mt-5 py-3 font-semibold rounded-lg shadow-md text-white bg-blue-500 hover:bg-blue-700"
-								 value="전송">
+								class="mt-5 py-3 font-semibold rounded-lg shadow-md text-white bg-blue-500 hover:bg-blue-700"
+								value="전송">
 				</div>
 				<div>
 					<label id="sendMsg" class="mx-auto block mt-3" style="color: red; font-size: 22px;">&nbsp;</label>
@@ -82,11 +82,11 @@
 				<label for="email_code" class="mx-auto block font-medium text-gray-900 dark:text-white">인증번호</label>
 				<div class="mx-auto flex justify-center items-center">
 					<input type="text" id="email_code" name="email_code"
-								 class="mx-px mt-5 block bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 focus:ring-2 focus:outline-none"
+								class="mx-px mt-5 block bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 focus:ring-2 focus:outline-none"
 					placeholder="인증코드 6자리">
 					<label for="confirm_code" id="timer" class="mx-px mt-5 ms-24 font-semibold" style="color:#3B82F6; font-size:25px"></label>
 					<input type="button" id="confirm_code" onclick="check()"
-								 class="mt-5 py-3 font-semibold rounded-lg shadow-md text-white bg-blue-500 hover:bg-blue-700" value="확인">
+								class="mt-5 py-3 font-semibold rounded-lg shadow-md text-white bg-blue-500 hover:bg-blue-700" value="확인">
 				</div>
 			</div>
 			<label id="errorMsg" class="mx-auto block py-3" style="color: red; font-size: 22px;">&nbsp;</label>
@@ -175,7 +175,7 @@
 	function check(){
 		let user_email_code = document.getElementById("email_code").value;
 
-		if(user_email_code === send_email_code){
+		if(user_email_code=== send_email_code){
 			document.getElementById('errorMsg').innerText = "☑️ 인증되었습니다.";
 			document.getElementById('errorMsg').style.color = "#3B82F6";
 		}else{
