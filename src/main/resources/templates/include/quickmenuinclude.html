@@ -1,28 +1,43 @@
-<aside class="quickMenu">
-    <div class="bg-green-500 border border-gray-200 rounded-lg shadow dark:bg-green-800 dark:border-gray-700">
+<aside class="quickMenu" style="position: sticky; top: 0;">
+    <div class="bg-blue-500 border border-gray-200 rounded-lg shadow dark:bg-green-800 dark:border-gray-700">
         <div class="profileImage">
             <a href="myPage">
                 <img src="defaultImage.png" alt="기본 프로필">
             </a>
         </div>
-        <div class="p-5">
-            <hr style="margin-bottom: 10px">
+        <div class="p-5 text-white text-3xl">
+            <th:block th:if="${user == null}">
+                <p style="text-align: center; font-size: 25px">게스트님 환영합니다.</p>
+            </th:block>
+            <th:block th:unless="${user == null}">
+                <p style="text-align: center; font-size: 25px"><span th:text="${user.user_name}"></span>님 환영합니다.</p>
+            </th:block>
+            <hr style="margin-bottom: 10px; margin-top: 10px;">
             <h1>회원 정보</h1>
-            <p style="font-size: 14px">회원 이름 : ${user_id}</p>
-            <p style="font-size: 14px">이메일 : ${user_mail}</p>
+            <th:block th:if="${user == null}">
+                <span style="font-size: 20px"><a href="login">로그인 하기</a></span>
+            </th:block>
+            <th:block th:unless="${user == null}">
+                <p style="font-size: 20px">이름 : <span th:text="${user.user_name}"></span></p>
+                <p style="font-size: 20px">이메일 : <span th:text="${user.user_email}"></span></p>
+            </th:block>
             <hr style="margin-top: 10px; margin-bottom: 10px">
-            <h1><a href="/reservation">예약 현황</a></h1>
-            <p style="font-size: 14px">예약 대기 : ${}</p>
-            <p style="font-size: 14px">예약 승인 : ${}</p>
+            <a href="/asklepios/myPage" onclick="checkSession()">마이페이지</a>
             <hr style="margin-top: 10px; margin-bottom: 10px">
-            <a href="/asklepios/myPage?user_id=gkgjfj" >마이페이지</a>
-            <hr style="margin-top: 10px; margin-bottom: 10px">
-            <a href="/reservation">예약하기</a>
+            <a href="/asklepios/reservation" onclick="checkSession()">예약하기</a>
             <hr style="margin-top: 10px; margin-bottom: 10px">
             <a href="/vaccinationInfo">백신정보</a>
             <hr style="margin-top: 10px; margin-bottom: 10px">
-            <a href="/hospitalInfo">병원검색</a>
+            <a href="/hospitalInfo">병원조회</a>
             <hr style="margin-top: 10px; margin-bottom: 10px">
         </div>
     </div>
 </aside>
+<!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+<!--<script th:inline="javascript">-->
+<!--    function checkSession() {-->
+<!--        if (/*[[${user_id}]] === null*/{}){-->
+<!--            alert("로그인 후 이용해주세요.");-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->

@@ -19,7 +19,8 @@
     body {
         width: 1920px;
         font-family: 'Pretendard-Regular',serif;
-        border: 1px black solid;
+        margin-top: 50px;
+        /*border: 1px black solid;*/
     }
     .insertValue {
         width: 80%;
@@ -369,8 +370,8 @@
     //     isRunning = true;
     // }
 </script>
-<body>
-    <h1 style="font-size: xx-large; text-align: center">회원 정보 입력</h1>
+<body class="mx-auto" style="margin-top: 50px">
+    <h1 style="font-size: xx-large; text-align: center;">회원 정보 입력</h1>
     <form action="/asklepios/commoninfo" method="post" enctype="multipart/form-data"  onsubmit="return checkInfo()" id="submit">
         <div class="tableSet">
             <table>
@@ -534,19 +535,19 @@
             </table>
         </div>
         <div style="text-align: center">
-            <button type="submit" class="bg-blue-800 rounded-lg w-48 h-12 my-10 text-white"  style="font-size: 18px;"><strong>  다음 →</strong></button>
+            <button type="submit" class="bg-blue-500 rounded-lg w-48 h-16 mt-10 text-white text-xl"><strong>추가 작성</strong></button>
         </div>
     </form>
     <br>
-    <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 100px">
+    <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px; margin-bottom: 20px;">
         <div style="text-align: center;">
-            <div class="sheet" style="background-color: #1e40af; color: white">
+            <div class="sheet" style="background-color: #3b82f6; color: white">
                 <p><strong>약관 동의</strong></p>
             </div>
         </div>
-        <div style="width: 50px; border: 1px solid #1e40af"></div>
+        <div style="width: 50px; border: 1px solid #3b82f6"></div>
         <div style="text-align: center">
-            <div class="sheet" style="background-color: #1e40af; color: white">
+            <div class="sheet" style="background-color: #3b82f6; color: white">
                 <p><strong>회원 가입</strong></p>
             </div>
         </div>

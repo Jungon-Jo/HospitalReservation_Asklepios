@@ -40,8 +40,13 @@
             <div class="p-5">
                 <hr style="margin-bottom: 10px">
                 <h1>회원 정보</h1>
-                <p style="font-size: 14px">회원 이름 : <span th:value="${user_name}"></span></p>
-                <p style="font-size: 14px">이메일 : <span th:value="${user_email}"></span></p>
+                <th:block th:if="${user == null}">
+                    <span style="padding-right: 20px;"><a href="login">로그인<i class="fa-solid fa-right-to-bracket"></i></a>해 주세요.</span>
+                </th:block>
+                <th:block th:unless="${user == null}">
+                    <p style="font-size: 14px">회원 이름 : <span th:value="${user.user_name}"></span></p>
+                    <p style="font-size: 14px">이메일 : <span th:value="${user.user_email}"></span></p>
+                </th:block>
                 <hr style="margin-top: 10px; margin-bottom: 10px">
                 <h1><a href="/reservation">예약 현황</a></h1>
                 <p style="font-size: 14px">예약 대기 : ${}</p>

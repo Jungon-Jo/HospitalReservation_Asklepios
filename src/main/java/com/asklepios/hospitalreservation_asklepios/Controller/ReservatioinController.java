@@ -16,7 +16,11 @@ public class ReservatioinController {
   @GetMapping("/reservation")
   public String reservation(@SessionAttribute(name = "loginUser", required = false) UserVO user, Model model) {
     model.addAttribute("user", user);
-    return "reservationPlace";
+    if(user == null){
+      return "redirect:/login";
+    }else{
+      return "reservationPlace";
+    }
   }
 
   @ResponseBody

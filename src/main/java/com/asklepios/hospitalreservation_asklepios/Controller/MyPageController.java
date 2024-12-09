@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.List;
 
@@ -32,28 +33,29 @@ public class MyPageController {
 //    private String filePath;
 
     @GetMapping("/myPage")
-    public String myPage(@RequestParam("user_id") String user_id, Model model) {
-        if (user_id == null) {
+    public String myPage(@SessionAttribute(name = "loginUser", required = false) UserVO user, Model model) {
+        if (user == null) {
             return "redirect:/login";
         } else {
             // UserVO 불러오기
-            UserVO userVO = userService.printOneInfo(user_id);
-            userVO.divideEngName();
-            userVO.divideAddr();
-            userVO.divideEmail();
-            userVO.divideTel();
-            String filePath = "profile_image/" + userVO.getUser_image();
-
+//            UserVO userVO = userService.printOneInfo(user_id);
+            user.divideEngName();
+            user.divideAddr();
+            user.divideEmail();
+            user.divideTel();
+            String filePath = "profile_image/" + user.getUser_image();
             // DoctorVO 불러오기
-            DoctorVO doctorVO = userService.printOneDoctorInfo(user_id);
-
+            System.out.println(user.getUser_id());
+            DoctorVO doctorVO = userService.printOneDoctorInfo(user.getUser_id());
+            System.out.println(doctorVO);
             // Reservation 불러오기
 //            List<ReservationStatusVO> reservationStatusVOList = reservationService.findAllReservation(user_id);
 //            List<ReservationStatusVO> reservationDoctorStatusVOList = reservationService.findAllDoctorReservation(user_id);
-
             model.addAttribute("filePath", filePath);
-            model.addAttribute("userVO", userVO);
+            model.addAttribute("user", user);
+            if(doctorVO != null){
             model.addAttribute("doctorVO", doctorVO);
+            }
 //            model.addAttribute("reservationStatusVOList", reservationStatusVOList);
 //            model.addAttribute("reservationDoctorStatusVOList", reservationDoctorStatusVOList);
             return "MyPage/myPage";

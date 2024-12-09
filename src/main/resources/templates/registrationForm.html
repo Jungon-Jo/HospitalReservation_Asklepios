@@ -8,13 +8,13 @@
   <link rel="stylesheet" href="reservationAside.css"/>
   <link rel="stylesheet" href="registrationForm.css">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script src="https://kit.fontawesome.com/9b855eea51.js" crossorigin="anonymous"></script>
+
 </head>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="https://kit.fontawesome.com/9b855eea51.js" crossorigin="anonymous"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 <body>
 <div th:replace="~{include/topinclude}"></div>
 <div style="display:flex; float: left; width: 1920px;">
@@ -103,10 +103,10 @@
             <div style="vertical-align: middle;">
               <div style="float: left;">
                 <input type="text" id="openTime"
-                       class="timepicker fillAuto bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 focus:ring-1 focus:outline-none">
+                       class="timepicker fillAuto bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 focus:ring-1 focus:outline-none" readonly>
                 <span class="hyphen" style="width: 107px;">ㅡ</span>
                 <input type="text" id="closeTime"
-                       class="timepicker fillAuto bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 focus:ring-1 focus:outline-none" >
+                       class="timepicker fillAuto bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 focus:ring-1 focus:outline-none" readonly>
                 <input type="text" name="hospital_time" id="hospital_time" hidden>
               </div>
             </div>
@@ -142,16 +142,18 @@
           <td colspan="2">
             <div class="flex justify-center">
               <input type="submit" value="등록하기"
-                    class="mx-px place-items-center bg-blue-500 w-64 h-16 rounded-lg text-white text-4xl font-semibold">
+                    class="mx-px place-items-center bg-blue-500 w-64 h-20 rounded-lg text-white text-5xl font-semibold hover:bg-blue-600">
             </div>
           </td>
         </tr>
       </table>
     </form>
   </div>
+  <aside id="aside2" th:insert="~{include/quickmenuinclude}"></aside>
 </div>
 </body>
 </html>
+<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 <script src="registrationForm.js"></script>
 
 

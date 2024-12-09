@@ -21,7 +21,7 @@
           <form th:action="@{logout}" method="post" style="display: inline; padding-right: 20px;">
             <button type="submit">로그아웃&nbsp;<i class="fa-solid fa-arrow-right-from-bracket"></i></button>
           </form>
-          <span><a href="login">마이페이지&nbsp;<i class="fa-solid fa-user"></i></a></span>
+          <span><a href="myPage">마이페이지&nbsp;<i class="fa-solid fa-user"></i></a></span>
         </th:block>
 <!--        <span><a href="login">회원가입<i class="fa-solid fa-user-plus"></i></a>   |</span>-->
 <!--        <span><a href="/asklepios/userjoin">로그인<i class="fa-solid fa-right-to-bracket"></i></a></span>-->
@@ -52,7 +52,7 @@
         <a href="registration">병원등록</a>
       </li>
       <li>
-        <a href="reservation">진료예약</a>
+        <a href="reservation" onclick="checkSession()">진료예약</a>
 <!--        <ul>-->
 <!--          <li><a href="#">text1</a></li>-->
 <!--          <li><a href="#">text2</a></li>-->
@@ -82,3 +82,12 @@
     </ul>
   </nav>
 </div>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script th:inline="javascript">
+  let user = /*[[${user}]]*/{};
+  function checkSession() {
+    if (user === null){
+      alert("로그인 후 이용해주세요.");
+    }
+  }
+</script>
