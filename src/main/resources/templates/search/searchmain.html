@@ -60,7 +60,7 @@
         /*position: fixed;*/
         width: 800px;
         /*border: 1px solid;*/
-        margin-left: 250px;
+        margin-left: 100px;
         height: 40px;
         text-align: center;
     }
@@ -137,9 +137,9 @@
       position: fixed;
       top: 150px;
       display: none;
-      margin-left: 200px;
+      margin-left: 100px;
       width: 850px;
-      height: 700px;
+      height: 800px;
       /*border: 1px solid;*/
       overflow: auto;
       border-radius:30px ;
@@ -179,9 +179,13 @@
    #reservation{
      margin-top: 30px;
    }
+   .radio{
+     width: 30px;
+     height: 30px;
+   }
 </style>
 <body>
-<div style="position: fixed" th:replace="include/topinclude"></div>
+<div style="position: fixed" th:replace="~{include/topinclude}"></div>
 <aside id="aside1">
 
 </aside>
@@ -223,7 +227,7 @@
                           <span class="info">진료시간: </span>
                           <span class="info" th:text="${hospitalVO.hospital_time}"> </span>
                           <span>|</span>
-                          <span class="info" th:text="${hospitalVO.user_doctor_medical}"></span>
+                          <span class="info" th:text="${hospitalVO.medicals}"></span>
                       </div>
                       <div class="info" th:text="${hospitalVO.hospital_addr}"></div>
                       <div class="info" th:text="${hospitalVO.hospital_tel}"></div>
@@ -317,34 +321,41 @@
           <div id="infoIntro"></div>
           <div class="infoTitle">공지사항</div>
           <div id="infoNotice"></div>
+          <div class="infoTitle">리뷰</div>
+          <table id="reviewTable">
+            <thead>
+              <tr>
+                <td width="10%">ID</td>
+                <td width="55%">리뷰내용</td>
+                <td width="20%">날짜</td>
+                <td width="15%">별점</td>
+              </tr>
+            </thead>
+            <tbody id="reviews">
+
+            </tbody>
+          </table>
           <div class="infoTitle">의사정보</div>
           <table id="doctorTable">
             <tr>
               <td>이름</td>
-              <td id="clickhospitaldoctorname"></td>
+              <td class="clickhospitaldoctorname"></td>
             </tr>
             <tr>
               <td>진료과목</td>
-              <td id="clickhospitaldoctorsubject"></td>
+              <td class="clickhospitaldoctorsubject"></td>
             </tr>
             <tr>
               <td>약력</td>
-              <td id="clickhospitaldoctorcareer"></td>
-            </tr>
-          </table>
-          <div class="infoTitle">리뷰</div>
-          <table id="reviewTable">
-            <tr>
-
+              <td class="clickhospitaldoctorcareer"></td>
             </tr>
           </table>
           <form action="reserve" method="post">
-            <input type="hidden"  name="hospital_name" class="reserve">
-            <input type="hidden" name="user_name" class="reserve">
-            <input type="hidden" name="login_name" class="reserve">
-            <input type="hidden" name="hospital_code" class="reserve">
-            <input type="hidden" name="user_doctor_code" class="reserve">
-            <input id="reservation" type="submit" style="width: 100px;height: 60px; font-size: 20px; background: #84b6ff; border-radius: 5px"  value="예약하기"></td>
+            <input type="hidden" id="hospitalName2" name="hospitalName">
+            <input  type="hidden" id="doctorCode" name="doctorCode">
+            <input type="hidden" id="hospitalCode" name="hospitalCode">
+            <input type="hidden" id="userID" name="userID" value="test">
+            <input id="reservation" type="submit" style="width: 200px;height: 80px; font-size: 30px; background: #84b6ff; border-radius: 5px"  value="예약하기">
           </form>
         </div>
       </div>
@@ -445,7 +456,6 @@
                     </div>
                     <div class="info" >${hospitalList[i].hospital_addr}</div>
                     <div class="info" >${hospitalList[i].hospital_tel}</div>`;
-
             }
           addEvent();
         }
@@ -479,8 +489,16 @@
           alert(selSub);
           tbody.innerHTML="";
           hospitalList.forEach(hospital=>{
-            if(hospital.user_doctor_medical===selSub){
-              mod_hospitalList.push(hospital);
+            if(hospital.medicals!==null){
+              if(hospital.medicals.includes(selSub)){0
+                mod_hospitalList.push(hospital);
+              }
+            }else{
+              if(hospital.user_doctor_medical!==null){
+                if(hospital.user_doctor_medical.includes(selSub)){
+                  mod_hospitalList.push(hospital);
+                }
+              }
             }
           });
           for(let i=0;i<mod_hospitalList.length;i++){
@@ -575,49 +593,142 @@
       document.body.style.backgroundColor="white";
     })
     //병원이름 클릭시 병원정보모달
-    let hospitalInfo;
+    let clickHospitalInfo;
     function showInfo(title){
       let clickHospital=findHospital(title);
-      hospitalInfo=clickHospital;
+      clickHospitalInfo=clickHospital;
+
       if(clickHospital == null){
         alert(title+"을/를 찾지못했습니다")
       }else{
-        // console.log(clickHospital);
+        // //병원코드로 리뷰 받아오기
+
+        $.ajax({
+          type: "POST",
+          url: "getreview",
+          data: {
+            "hospitalCode": clickHospital.hospital_code
+          },
+          success: function (data) {
+            // alert('성공');
+            // console.log(data);
+            let reviewArr=data;
+            let reviews=document.getElementById("reviews");
+            for(let i=0;i<reviewArr.length;i++){
+              reviews.innerHTML+=`<tr>
+<td>${reviewArr[i].review_user_id}</td>
+<td>${reviewArr[i].review_content}</td>
+<td>${reviewArr[i].review_date.substr(2,8)}</td>
+<td>${reviewArr[i].review_score}</td>
+</tr>`
+            }
+
+          },
+          error: function (data) {
+            alert("실패");
+          }
+        })
+        //모달창 병원정보 입력
         document.getElementById("clickhospitalname").innerText=clickHospital.hospital_name;
         document.getElementById("clickhospitaltime").innerText=clickHospital.hospital_time;
-        document.getElementById("clickhospitalsubject").innerText=clickHospital.user_doctor_medical;
+        document.getElementById("clickhospitalsubject").innerText=clickHospital.medicals;
         document.getElementById("clickhospitaladdr").innerText=clickHospital.hospital_addr;
         document.getElementById("clickhospitaltel").innerText=clickHospital.hospital_tel;
         document.getElementById("infoIntro").innerText=clickHospital.hospital_intro;
         document.getElementById("infoNotice").innerText=clickHospital.hospital_notice;
-        document.getElementById("clickhospitaldoctorname").innerText=clickHospital.user_name;
-        document.getElementById("clickhospitaldoctorsubject").innerText=clickHospital.user_doctor_medical;
-        document.getElementById("clickhospitaldoctorcareer").innerHTML=clickHospital.user_doctor_career+`<br>`+
-                                                                        clickHospital.user_doctor_graduate;
-        let reserveInfo=document.getElementsByClassName("reserve");
-        reserveInfo[0].value=clickHospital.hospital_name;
-        reserveInfo[1].value=clickHospital.user_name;
-        reserveInfo[2].value="id";
-        reserveInfo[3].value=clickHospital.hospital_code;
-        reserveInfo[4].value=clickHospital.user_doctor_code;
+        document.getElementById("hospitalCode").value=clickHospital.hospital_code;
+        document.getElementById("hospitalName2").value=clickHospital.hospital_name;
+        let doctorTable=document.getElementById("doctorTable");
+        doctorTable.innerHTML="";
+        //클릭한 병원의사 한명일 때
+        if(clickHospital.names==null) {
+          doctorTable.innerHTML+=
+              `<tr>
+                <td>이름</td>
+                <td class="clickhospitaldoctorname"></td>
+                <td rowspan="3">
+                  <img src="profile_image/${clickHospital.user_image}" width="150px" height="200px"
+                </td>
+               </tr>
+               <tr>
+                <td>진료과목</td>
+                <td class="clickhospitaldoctorsubject"></td>
+               </tr>
+               <tr>
+                <td>약력</td>
+                <td class="clickhospitaldoctorcareer"></td>
+               </tr>
+              <tr></tr>`;
+          document.getElementsByClassName("clickhospitaldoctorname")[0].innerText = clickHospital.user_name;
+          document.getElementsByClassName("clickhospitaldoctorsubject")[0].innerText = clickHospital.user_doctor_medical;
+          document.getElementsByClassName("clickhospitaldoctorcareer")[0].innerHTML = clickHospital.user_doctor_career + `<br>` +
+              clickHospital.user_doctor_graduate;
+          document.getElementById("doctorCode").value=clickHospital.user_doctor_code;
+        }else{  //의사가 여러명일 때
+          let nameArr=clickHospital.names.split(",");
+          // alert(nameArr[0]);
+          // alert(nameArr[1]);
+          let medicalArr=clickHospital.medicals.split(",");
+          let careerArr=clickHospital.careers.split(",");
+          let graduateArr=clickHospital.graduates.split(",");
+          let imageArr=clickHospital.images.split(",");
+          let doctorCodeArr=clickHospital.codes.split(",");
+          for(let i=0;i<nameArr.length;i++){
+            doctorTable.innerHTML+=
+                `<tr>
+                <td>이름</td>
+                <td class="clickhospitaldoctorname"></td>
+                <td rowspan="3">
+                  <img src="profile_image/${imageArr[i]}" width="150px" height="200px"
+                </td>
+                <td rowspan="3" style="text-align: center">선택<br><br><input class="radio" type="radio" name="selectDoctor"></td>
+               </tr>
+               <tr>
+                <td>진료과목</td>
+                <td class="clickhospitaldoctorsubject"></td>
+               </tr>
+               <tr>
+                <td>약력</td>
+                <td class="clickhospitaldoctorcareer"></td>
+               </tr>
+                <tr><td><input type="hidden" class="clickhosptialdoctorcode"></td></tr>`;
+            document.getElementsByClassName("clickhospitaldoctorname")[i].innerText=nameArr[i];
+            document.getElementsByClassName("clickhospitaldoctorsubject")[i].innerText=medicalArr[i];
+            document.getElementsByClassName("clickhospitaldoctorcareer")[i].innerHTML=careerArr[i]+`<br>`+
+                graduateArr[i];
+            document.getElementsByClassName("radio")[0].checked=true;
+          }
+          let idx=findIdx();
+          document.getElementById("doctorCode").value=doctorCodeArr[idx];
+
+        }
+
       }
       document.body.style.backgroundColor="gray";
       modalInfo.style.backgroundColor="white";
       modalInfo.style.display="flex";
       hospitalname.innerText="상세정보";
-
     }
 
 
     //병원이름으로 배열에서 병원정보 가져오기
-    function findHospital(title){
+    function findHospital(title) {
       let hospitalVO;
-     hospitalList.forEach(hospital => {
-       if(hospital.hospital_name === title){
-         hospitalVO=hospital;
-       }
-     })
+      hospitalList.forEach(hospital => {
+        if (hospital.hospital_name === title) {
+          hospitalVO = hospital;
+        }
+      })
       return hospitalVO;
+    }
+    //체크된 의사 인덱스 찾기
+    function findIdx(){
+      let radio=document.getElementsByClassName("radio");
+      for(let i=0;i<radio.length;i++){
+        if(radio[i].checked===true){
+          return i;
+        }
+      }
     }
 </script>
 

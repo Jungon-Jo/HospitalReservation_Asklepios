@@ -3,6 +3,7 @@ package com.asklepios.hospitalreservation_asklepios.Service;
 import com.asklepios.hospitalreservation_asklepios.Repository.IF_SearchMapper;
 import com.asklepios.hospitalreservation_asklepios.VO.HospitalVO;
 import com.asklepios.hospitalreservation_asklepios.VO.Hospital_doctorVO;
+import com.asklepios.hospitalreservation_asklepios.VO.ReviewVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,8 @@ public class IM_SearchService implements IF_SearchService{
 
     @Override
     public List<Hospital_doctorVO> searchInfo(String name) {
+        List<Hospital_doctorVO> list=searchMapper.selectInfo(name);
+//        System.out.println(list.toString());
         return searchMapper.selectInfo(name);
     }
 
@@ -74,5 +77,10 @@ public class IM_SearchService implements IF_SearchService{
 //        }
         return modHospitalList;
 
+    }
+
+    @Override
+    public List<ReviewVO> searchReview(String hospital_code) {
+        return searchMapper.selectReview(hospital_code);
     }
 }

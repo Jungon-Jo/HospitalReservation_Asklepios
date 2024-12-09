@@ -1,16 +1,18 @@
 package com.asklepios.hospitalreservation_asklepios.Controller;
 
 import com.asklepios.hospitalreservation_asklepios.Service.IF_SearchService;
-import com.asklepios.hospitalreservation_asklepios.VO.HospitalVO;
+
 import com.asklepios.hospitalreservation_asklepios.VO.Hospital_doctorVO;
+import com.asklepios.hospitalreservation_asklepios.VO.ReviewVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,14 +45,16 @@ public class SearchController {
 //        for(HospitalVO hospitalVO:modHospitalList){
 //            System.out.println(hospitalVO.toString());
 //        }
-
         if(type.equals("date")){
-            List<Hospital_doctorVO> filteredDate = searchService.filterDate(modHospitalList);
-            return filteredDate;
+          modHospitalList = searchService.filterDate(modHospitalList);
         }else if(type.equals("ing")){
-            List<Hospital_doctorVO> filteredDate = searchService.filterIng(modHospitalList);
+          modHospitalList = searchService.filterIng(modHospitalList);
         }
         return modHospitalList;
     }
-
+    @PostMapping("/getreview")
+    public List<ReviewVO> getReview(@RequestParam("hospitalCode") String hospitalCode){
+        System.out.println(hospitalCode);
+        return searchService.searchReview(hospitalCode);
+    }
 }

@@ -29,16 +29,17 @@ public class ReservatioinController {
                                   @RequestParam("hospital_address") String hospitalAddr) {
     return reservationService.checkHospitalName(hospitalName, hospitalAddr);
   }
-
   @PostMapping("/reserve")
   public String reserve(@SessionAttribute(name = "loginUser", required = false) UserVO user,
-                        @RequestParam(value = "hospital_name", required = false) String hospitalName,
+        @RequestParam("hospitalCode") String hospitalCode,
+        @RequestParam("doctorCode") String doctorCode,
+        @RequestParam("hospitalName") String hospitalName,
                         Model model){
     System.out.println(user.toString());
     model.addAttribute("user", user);
-    String doctorCode ="4fb63188-1578-4a0a-ae21-5a2786cb85cf";
+//    String doctorCode ="4fb63188-1578-4a0a-ae21-5a2786cb85cf";
     String doctorName = reservationService.findDoctorName(doctorCode);
-    String hospitalCode = reservationService.findHospitalCode(hospitalName);
+//    String hospitalCode = reservationService.findHospitalCode(hospitalName);
     model.addAttribute("hospital_name", hospitalName);
     model.addAttribute("hospital_code", hospitalCode);
     model.addAttribute("doctor_name", doctorName);

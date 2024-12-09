@@ -1,4 +1,4 @@
-package com.asklepios.hospitalreservation_asklepios.VO;
+package com.asklepios.hospitalreservation_asklepios.Util;
 
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,7 +24,7 @@ import java.util.UUID;
 @Data
 @Controller
 public class FileDataUtil {
-    private ArrayList<String> extNameArray = new ArrayList<>();
+    private ArrayList<String>extNameArray=new ArrayList<>();
     private String uploadPath;
 
     @Value("${upload.file.path}")
@@ -32,32 +32,30 @@ public class FileDataUtil {
         this.uploadPath = uploadPath;
     }
 
-
     @RequestMapping(value = "/downloadfile", method = RequestMethod.GET)
     @ResponseBody
-    public FileSystemResource fileDownload(@RequestParam("filename") String fileName, HttpServletResponse response) {
-        File file = new File(uploadPath + "/" + fileName);
+    public FileSystemResource fileDownload(@RequestParam("filename")String fileName, HttpServletResponse response){
+        File file=new File(uploadPath+"/"+fileName);
         response.setContentType("application/download;charset=UTF-8");
-        response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+        response.setHeader("Content-Disposition","attachment;filename="+fileName);
         return new FileSystemResource(file);
     }
-
-    public String[] fileUpload(MultipartFile[] file) throws IOException {
-        String[] files = new String[file.length];
-        for (int i = 0; i < file.length; i++) {
-            if (!Objects.equals(file[i].getOriginalFilename(), "")) {
-                String originalName = file[i].getOriginalFilename();
-                UUID uid = UUID.randomUUID();
-                String saveName = uid.toString() + "." + originalName.split("\\.")[1];
-                files = new String[]{saveName};
-                byte[] fileData = file[i].getBytes();
-                File target = new File(uploadPath, saveName);
-                FileCopyUtils.copy(fileData, target);
-                files[i] = saveName;
-            }
+  public String [] fileUpload(MultipartFile[] file) throws IOException {
+      String [] files = new String[file.length];
+      for(int i=0;i<file.length;i++){
+        if(!Objects.equals(file[i].getOriginalFilename(), "")){
+          String originalName=file[i].getOriginalFilename();
+          UUID uid= UUID.randomUUID();
+          String saveName=uid.toString()+"."+originalName.split("\\.")[1];
+          files=new String []{saveName};
+          byte[]fileData=file[i].getBytes();
+          File target=new File(uploadPath,saveName);
+          FileCopyUtils.copy(fileData,target);
+          files[i]=saveName;
         }
-        return files;
-    }
+      }
+      return files;
+  }
 
 
 }

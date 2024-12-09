@@ -13,12 +13,18 @@ public class Hospital_doctorVO {
   private String hospital_tel;
   private String hospital_addr;
   private String doctor_code;
+  private String codes;
   private String user_doctor_id;
   private String user_doctor_hospital_code;
   private String user_doctor_medical;
+  private String medicals;
   private String user_doctor_career;
+  private String careers;
   private String user_doctor_graduate;
+  private String graduates;
   private String user_name;
+  private String names;
   private String user_image;
+  private String images;
   private String login_name;
 }
