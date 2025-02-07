@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbot</title>
+  <style>
+    /* 챗봇 버튼 (오른쪽 하단) */
+    #chatbot-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 12px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+      display: block; /* 버튼이 보이도록 설정 */
+    }
+
+    #chatbot-btn:hover {
+      transform: scale(1.1);
+    }
+
+    /* 챗봇 창 */
+    #chatbot-container {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 300px;
+      height: 400px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      display: none; /* 기본적으로 숨김 */
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* 챗봇 헤더 */
+    #chat-header {
+      background: #007bff;
+      color: white;
+      padding: 10px;
+      font-size: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #close-btn {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    /* 챗봇 본문 */
+    #chat-body {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      background: #f1f1f1;
+    }
+    .chat-message {
+      padding: 8px 12px;
+      margin: 5px 0;
+      border-radius: 5px;
+      max-width: 80%;
+      font-size: 14px;
+    }
+    .bot {
+      background: #007bff;
+      color: white;
+      align-self: flex-start;
+    }
+    .user {
+      background: #ddd;
+      color: black;
+      align-self: flex-end;
+    }
+
+    /* 챗봇 입력창 */
+    #chat-footer {
+      display: flex;
+      padding: 10px;
+      background: white;
+      border-top: 1px solid #ddd;
+    }
+    #chat-input {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    #send-btn {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<div>
+  <!-- 챗봇 버튼 -->
+  <button id="chatbot-btn">
+    <span>💬 guideChatbot</span>
+  </button>
+
+  <!-- 챗봇 창 -->
+  <div id="chatbot-container">
+    <div id="chat-header">
+      <span>챗봇</span>
+      <button id="close-btn">✖</button>
+    </div>
+    <div id="chat-body">
+      <div class="chat-message bot">안녕하세요! 무엇을 도와드릴까요? 😊</div>
+    </div>
+    <div id="chat-footer">
+      <input type="text" id="chat-input" placeholder="메시지를 입력하세요...">
+      <button id="send-btn">📩</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const chatbotBtn = document.getElementById("chatbot-btn");
+    const chatbotContainer = document.getElementById("chatbot-container");
+    const closeBtn = document.getElementById("close-btn");
+    const chatInput = document.getElementById("chat-input");
+    const sendBtn = document.getElementById("send-btn");
+    const chatBody = document.getElementById("chat-body");
+
+    // 챗봇 버튼 클릭 시 채팅창 토글
+    chatbotBtn.addEventListener("click", function() {
+      chatbotContainer.style.display = chatbotContainer.style.display === "block" ? "none" : "block";
+    });
+
+    // 닫기 버튼 클릭 시 챗봇 창 닫기
+    closeBtn.addEventListener("click", function() {
+      chatbotContainer.style.display = "none";
+    });
+
+    // 메시지 전송 기능
+    function sendMessage() {
+      const userMessage = chatInput.value.trim();
+      if (userMessage === "") return;
+
+      // 사용자 메시지 표시
+      const userChat = document.createElement("div");
+      userChat.classList.add("chat-message", "user");
+      userChat.textContent = userMessage;
+      chatBody.appendChild(userChat);
+      chatInput.value = "";
+
+      // 챗봇 응답 (예제)
+      setTimeout(() => {
+        const botChat = document.createElement("div");
+        botChat.classList.add("chat-message", "bot");
+        botChat.textContent = "챗봇이 응답 중입니다...";
+        chatBody.appendChild(botChat);
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, 1000);
+
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    // 전송 버튼 클릭 이벤트
+    sendBtn.addEventListener("click", sendMessage);
+
+    // 엔터 키 입력 시 메시지 전송
+    chatInput.addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        sendMessage();
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

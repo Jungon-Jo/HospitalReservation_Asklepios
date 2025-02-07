@@ -18,6 +18,107 @@
         cursor: pointer;
         flex-direction: column;
     }
+    /* 챗봇 버튼 (오른쪽 하단) */
+    #chatbot-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 12px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+        display: block; /* 버튼이 보이도록 설정 */
+    }
+
+    #chatbot-btn:hover {
+        transform: scale(1.1);
+    }
+
+    /* 챗봇 창 */
+    #chatbot-container {
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        width: 300px;
+        height: 400px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        display: none; /* 기본적으로 숨김 */
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    /* 챗봇 헤더 */
+    #chat-header {
+        background: #007bff;
+        color: white;
+        padding: 10px;
+        font-size: 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    #close-btn {
+        background: transparent;
+        border: none;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    /* 챗봇 본문 */
+    #chat-body {
+        flex: 1;
+        padding: 10px;
+        overflow-y: auto;
+        background: #f1f1f1;
+    }
+    .chat-message {
+        padding: 8px 12px;
+        margin: 5px 0;
+        border-radius: 5px;
+        max-width: 80%;
+        font-size: 14px;
+    }
+    .bot {
+        background: #007bff;
+        color: white;
+        align-self: flex-start;
+    }
+    .user {
+        background: #ddd;
+        color: black;
+        align-self: flex-end;
+    }
+
+    /* 챗봇 입력창 */
+    #chat-footer {
+        display: flex;
+        padding: 10px;
+        background: white;
+        border-top: 1px solid #ddd;
+    }
+    #chat-input {
+        flex: 1;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    #send-btn {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 8px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-left: 5px;
+    }
 </style>
 <aside class="quickMenu" style="position: sticky; top: 30px;">
     <div class="bg-blue-500 border border-gray-200 rounded-lg shadow dark:bg-green-800 dark:border-gray-700">
@@ -83,7 +184,9 @@
             <a href="/asklepios/search?keyword=">병원검색</a>
             <hr style="margin-top: 10px; margin-bottom: 10px">
         </div>
+        <hr style="margin-top: 10px; margin-bottom: 10px">
     </div>
+
     <div sec:authorize="isAnonymous()">
         <div style="position: sticky; top: 0px; cursor: pointer;" onclick="animation()">
             <div class="toTop" style="top:760px;">

@@ -10,6 +10,7 @@
 			crossorigin="anonymous"
     ></script>
   <link rel="stylesheet" href="CSS/home.css" />
+  <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="Img/logo_icon.png" type="image/x-icon">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -270,6 +271,106 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    /* 챗봇 버튼 (오른쪽 하단) */
+    #chatbot-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    #chatbot-btn:hover {
+      transform: scale(1.1);
+    }
+
+    /* 챗봇 창 */
+    #chatbot-container {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 300px;
+      height: 400px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      display: none; /* 기본적으로 숨김 */
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* 챗봇 헤더 */
+    #chat-header {
+      background: #007bff;
+      color: white;
+      padding: 10px;
+      font-size: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #close-btn {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    /* 챗봇 본문 (채팅 메시지) */
+    #chat-body {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      background: #f1f1f1;
+    }
+    .chat-message {
+      padding: 8px 12px;
+      margin: 5px 0;
+      border-radius: 5px;
+      max-width: 80%;
+      font-size: 14px;
+    }
+    .bot {
+      background: #007bff;
+      color: white;
+      align-self: flex-start;
+    }
+    .user {
+      background: #ddd;
+      color: black;
+      align-self: flex-end;
+    }
+
+    /* 챗봇 입력창 */
+    #chat-footer {
+      display: flex;
+      padding: 10px;
+      background: white;
+      border-top: 1px solid #ddd;
+    }
+    #chat-input {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    #send-btn {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 5px;
+    }
   </style>
 </head>
 <body>
@@ -443,5 +544,4 @@
       observer.observe(el);
     });
   });
-
 </script>
