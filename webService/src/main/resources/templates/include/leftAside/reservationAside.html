@@ -1,52 +1,31 @@
-<!--  <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=&callback=initMap"></script>-->
-<!--  <script type="text/javascript">-->
-<!--    var map = null;-->
-
-<!--    function initMap() {-->
-<!--      map = new naver.maps.Map('map', {-->
-<!--        center: new naver.maps.LatLng(37.3595704, 127.105399),-->
-<!--        zoom: 10-->
-<!--      });-->
-<!--    }-->
-<!--  </script>-->
 <body>
 <aside>
   <th:block th:unless="${user == null}">
-    <a href="/asklepios/registration">
-      <div class="asideStyle" style="margin-top: 10px;">
-        <input type="button" class="asideForm asideButton asideRegistration rounded-lg hover:rounded-lg" value="병원등록">
-      </div>
-    </a>
-    <a href="/asklepios/reservation">
-      <div class="asideStyle">
-        <input type="button" class="asideForm asideButton asideSearchHospital rounded-lg hover:rounded-lg" value="병원예약">
-      </div>
-    </a>
+    <div class="asideStyle" style="margin-top: 10px;">
+      <input type="button" class="asideForm asideButton asideRegistration rounded-lg hover:rounded-lg" value="병원등록">
+    </div>
     <div class="asideStyle">
-      <a href="/asklepios/reservation">
-        <input type="button" class="asideForm asideButton asideReservation rounded-lg hover:rounded-lg" value="진료예약" onclick="reservationFirst()">
-      </a>
+      <input type="button" class="asideForm asideButton asideSearchHospital rounded-lg hover:rounded-lg" value="병원예약">
+    </div>
+    <div class="asideStyle">
+      <input type="button" class="asideForm asideButton asideReservation rounded-lg hover:rounded-lg" value="진료예약" onclick="reservationFirst()">
     </div>
     <th:block th:if="${user.user_authority == 'client'}">
-      <a href="/asklepios/reservationStatusClient">
-        <div class="asideStyle">
-          <input type="button" class="asideForm asideButton asideReservationInfo rounded-lg hover:rounded-lg" value="예약현황">
-        </div>
-      </a>
+      <div class="asideStyle">
+        <input type="button" class="asideForm asideButton asideReservationInfo rounded-lg hover:rounded-lg" value="예약현황">
+      </div>
     </th:block>
     <th:block th:if="${user.user_authority == 'doctor'}">
-      <a href="/asklepios/reservationStatusDoctor">
-        <div class="asideStyle">
-          <input type="submit" class="asideForm asideButton asideReservationInfo rounded-lg hover:rounded-lg" value="예약현황">
-        </div>
-      </a>
+      <div class="asideStyle">
+        <input type="submit" class="asideForm asideButton asideReservationInfo rounded-lg hover:rounded-lg" value="예약현황">
+      </div>
     </th:block>
   </th:block>
 </aside>
 </body>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script>
-  function reservationFirst(){
-    alert("예약하기를 통해 진행해주세요.");
-  }
+  // function reservationFirst(){
+  //   alert("예약하기를 통해 진행해주세요.");
+  // }
 </script>

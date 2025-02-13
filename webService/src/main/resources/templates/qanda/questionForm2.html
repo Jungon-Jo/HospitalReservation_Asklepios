@@ -71,7 +71,7 @@
 
         <tr class="small" th:each="item : ${list.answerlist}">
           <td colspan="1" class="td2">
-            <div class="data-display flex items-center">
+            <div class="data-display flex items-center space-x-3">
               <img src="이미지 URL" alt="이미지 설명" class="w-12 h-12 rounded-full mr-4">
               <p class="text-gray-500 text-lg" th:text="${item.tag}"> 해당 전문과</p>
               <p class="text-gray-500 text-lg" th:text="${item.sub}"> 병원명</p>

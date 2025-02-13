@@ -36,63 +36,126 @@
   window.onload = function () {
     viewReservationStatus();
   }
+  let currentPage = 1; // 현재 페이지
+  const itemsPerPage = 10; // 한 페이지당 보여줄 개수
+  let totalPages = 1; // 총 페이지 수
 
   function viewReservationStatus() {
-    let tbody = document.getElementById("reservationTable");
-    tbody.innerHTML = "";
-    $.ajax({
-      url: "/asklepios/userreservationstatus",
-      type: "get",
-      data: {
-        user_id: userId,
-      },
-      success: function (reservationUserStatusVOList) {
-        // console.log(reservationUserStatusVOList[0].hospital_name);
-        reservationUserStatusVOList.sort((a, b) => {
-          let dateA = new Date(a.reservation_date + " " + a.reservation_time);
-          let dateB = new Date(b.reservation_date + " " + b.reservation_time);
-          return dateA - dateB; // 오름차순
-        });
-        let table = document.getElementById("reservationTable");
-        if (reservationUserStatusVOList.length === 0) {
-          document.getElementById("userStatusTable").style.display = "none";
-          document.getElementById("reservation").removeAttribute("display");
-        } else {
-          for (let i = 0; i < reservationUserStatusVOList.length; i++) {
-            // alert("2");
-            const newRow = table.insertRow();
-            newRow.style.textAlign = "center";
+      let tbody = document.getElementById("reservationTable");
+      tbody.innerHTML = "";
 
-            let newCell1 = newRow.insertCell(0);
-            let newCell2 = newRow.insertCell(1);
-            let newCell3 = newRow.insertCell(2);
-            let newCell4 = newRow.insertCell(3);
-            let newCell5 = newRow.insertCell(4);
+      $.ajax({
+          url: "/asklepios/userreservationstatus",
+          type: "get",
+          data: {
+              user_id: userId,
+          },
+          success: function (reservationUserStatusVOList) {
+              // 데이터 정렬 (날짜 오름차순)
+              reservationUserStatusVOList.sort((a, b) => {
+                  let dateA = new Date(a.reservation_date + " " + a.reservation_time);
+                  let dateB = new Date(b.reservation_date + " " + b.reservation_time);
+                  return dateA - dateB;
+              });
 
-            newCell1.style.height = "50px";
-            newCell2.style.height = "50px";
-            newCell3.style.height = "50px";
-            newCell4.style.height = "50px";
-            newCell5.style.height = "50px";
+              if (reservationUserStatusVOList.length === 0) {
+                  document.getElementById("userStatusTable").style.display = "none";
+                  document.getElementById("reservation").removeAttribute("display");
+                  return;
+              }
 
-            newCell1.innerHTML = '<p>' + reservationUserStatusVOList[i].hospital_name + '</p>';
-            //의사의 이름을 출력
-            newCell2.innerHTML = '<p>' + reservationUserStatusVOList[i].user_name + '</p>';
-            newCell3.innerHTML = '<p>' + reservationUserStatusVOList[i].reservation_date + "/" + reservationUserStatusVOList[i].reservation_time + '</p>';
-            newCell4.innerHTML = '<p>' + reservationUserStatusVOList[i].reservation_memo + '</p>';
-            newCell5.innerHTML = '<p>' + reservationUserStatusVOList[i].reservation_accept + '</p>';
-
-            if (reservationUserStatusVOList[i].reservation_accept === "승인") {
-              newCell5.style.color = "green";
-            } else if(reservationUserStatusVOList[i].reservation_accept === "대기"){
-              newCell5.style.color = "#3b82f6";
-            } else{
-              newCell5.style.color = "red";
-            }
+              totalPages = Math.ceil(reservationUserStatusVOList.length / itemsPerPage); // 전체 페이지 계산
+              displayPageData(reservationUserStatusVOList, currentPage);
+              createPagination(totalPages);
+          },
+          error: function () {
+              alert("예약 현황을 불러오는 데 실패했습니다.");
           }
-        }
+      });
+  }
+
+  function displayPageData(data, page) {
+      let tbody = document.getElementById("reservationTable");
+      tbody.innerHTML = ""; // 기존 데이터 삭제
+
+      let start = (page - 1) * itemsPerPage;
+      let end = start + itemsPerPage;
+      let pageData = data.slice(start, end); // 해당 페이지의 데이터만 가져오기
+
+      pageData.forEach(reservation => {
+          const newRow = tbody.insertRow();
+          newRow.style.textAlign = "center";
+          newRow.style.height = "50px";
+          let newCell1 = newRow.insertCell(0);
+          let newCell2 = newRow.insertCell(1);
+          let newCell3 = newRow.insertCell(2);
+          let newCell4 = newRow.insertCell(3);
+          let newCell5 = newRow.insertCell(4);
+
+          newCell1.innerHTML = `<p>${reservation.hospital_name}</p>`;
+          newCell2.innerHTML = `<p>${reservation.user_name}</p>`;
+          newCell3.innerHTML = `<p>${reservation.reservation_date}-${reservation.reservation_time}</p>`;
+          newCell4.innerHTML = `<p>${reservation.reservation_memo}</p>`;
+          newCell5.innerHTML = `<p>${reservation.reservation_accept}</p>`;
+
+          if (reservation.reservation_accept === "승인") {
+              newCell5.style.color = "green";
+          } else if (reservation.reservation_accept === "대기") {
+              newCell5.style.color = "#3b82f6";
+          } else {
+              newCell5.style.color = "red";
+          }
+      });
+  }
+
+  function createPagination(totalPages) {
+      let paginationContainer = document.getElementById("pagination");
+      paginationContainer.innerHTML = ""; // 기존 페이지네이션 삭제
+
+      let startPage = Math.floor((currentPage - 1) / 10) * 10 + 1;
+      let endPage = Math.min(startPage + 9, totalPages);
+      if (startPage > 1) {
+          let prevBtn = document.createElement("button");
+          prevBtn.innerHTML = `<i class="fa-solid fa-chevron-left"></i>`;
+          prevBtn.style.fontWeight = "bold";
+          prevBtn.style.fontSize = "25px";
+          prevBtn.style.padding = "20px";
+          prevBtn.onclick = function () {
+              currentPage = startPage - 1;
+              viewReservationStatus();
+          };
+          paginationContainer.appendChild(prevBtn);
       }
-    })
+
+      for (let i = startPage; i <= endPage; i++) {
+          let pageBtn = document.createElement("button");
+          pageBtn.innerText = i;
+          pageBtn.classList.add("page-btn");
+          pageBtn.style.fontSize = "25px";
+          pageBtn.style.padding = "20px";
+          if (i === currentPage) {
+              pageBtn.style.fontWeight = "bold";
+              pageBtn.style.color = "#3b82f6";
+          }
+          pageBtn.onclick = function () {
+              currentPage = i;
+              viewReservationStatus();
+          };
+          paginationContainer.appendChild(pageBtn);
+      }
+
+      if (endPage < totalPages) {
+          let nextBtn = document.createElement("button");
+          nextBtn.innerHTML = `<i class="fa-solid fa-chevron-right"></i>`;
+          nextBtn.style.fontWeight = "bold";
+          nextBtn.style.fontSize = "25px";
+          nextBtn.style.padding = "20px";
+          nextBtn.onclick = function () {
+              currentPage = endPage + 1;
+              viewReservationStatus();
+          };
+          paginationContainer.appendChild(nextBtn);
+      }
   }
 </script>
 <body>
@@ -111,7 +174,7 @@
         <table style="width: 100%" id="userStatusTable">
           <thead>
           <tr style="text-align: center; background-color: #3b82f6; height: 50px">
-            <td style="width: 20%">
+            <td style="width: 25%">
               <p class="mx-auto block font-medium text-white text-2xl dark:text-white">
                 병원
               </p>
@@ -121,17 +184,17 @@
                 의사
               </p>
             </td>
-            <td style="width: 15%">
+            <td style="width: 20%">
               <p class="mx-auto block font-medium text-white text-2xl dark:text-white">
                 날짜
               </p>
             </td>
-            <td style="width: 39.5%">
+            <td style="width: 34.5%">
               <p class="mx-auto block font-medium text-white text-2xl dark:text-white">
                 메모
               </p>
             </td>
-            <td style="width: 15%">
+            <td style="width: 10%">
               <p class="mx-auto block font-medium text-white text-2xl dark:text-white">
                 상태
               </p>
@@ -141,6 +204,7 @@
           <tbody id="reservationTable">
           </tbody>
         </table>
+        <div id="pagination" style="text-align: center; margin-top: 20px;"></div>
       </div>
     </div>
   </div>

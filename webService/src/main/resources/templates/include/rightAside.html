@@ -142,46 +142,6 @@
         border-color: #3b82f6;
         outline: none;
     }
-    #selection button {
-        width: 200px;
-        height: 50px;
-        font-size: 20px;
-        font-weight: bold;
-        color: white;
-        border: none;
-        border-radius: 10px;
-        margin: 10px;
-        cursor: pointer;
-        transition: transform 0.2s, background 0.3s;
-    }
-    #selection button:first-child {
-        background-color: #007bff; /* 파란색 */
-    }
-    #selection button:last-child {
-        background-color: #28a745; /* 초록색 */
-    }
-    #selection button:hover {
-        transform: scale(1.05);
-        opacity: 0.9;
-    }
-    /* 챗봇 종료 버튼 스타일 */
-    #exitChat {
-        width: 100%;
-        background: #ff4d4d; /* 빨간색 */
-        color: white;
-        border: none;
-        padding: 10px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 20px;
-        text-align: center;
-        transition: transform 0.2s, background 0.3s;
-        margin-top: auto; /* 하단으로 밀어내기 */
-    }
-    #exitChat:hover {
-        transform: scale(1.05);
-        background: #ff1a1a;
-    }
 </style>
 <aside class="quickMenu" style="position: sticky; top: 30px;">
     <div class="bg-blue-500 border border-gray-200 rounded-lg shadow dark:bg-green-800 dark:border-gray-700">
@@ -279,9 +239,9 @@
         <span style="cursor:pointer; position: relative; left: 150px;" onclick="toggleChat()"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="size-10">
   <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg></span>
     </div>
-    <div id="selection" style="display: flex; justify-content: center;">
-        <button id="guideChatBtn">💬 서비스 이용 문의</button>
-        <button id="symptomChatBtn">🏥 진료과 추천</button>
+    <div id="selection">
+        <button onclick="useGuideChat()">서비스 이용 문의</button>
+        <button onclick="useSymptomChat()">진료과 추천</button>
     </div>
     <div class="chatBody" id="chatBody" style="display: none;">
         <div class="messageWrapper botMessageWrapper">
@@ -289,16 +249,12 @@
             <div class="message botMessage">안녕하세요? ASKLEPIOS 챗봇 입니다.<br><span id="chatMessage"></span></div>
         </div>
     </div>
-    <div>
-        <!-- 챗봇 종료 버튼 -->
-        <button id="exitChat" style="display: none;">🔙 뒤로 가기</button>
-    </div>
     <div class="chatInput" id="messageInput" style="display: none;">
         <div contenteditable="true" id="chatInput" rows="1"><span id="identifier" style="display: none"></span></div>
-        <button id="sendBtn">전송</button>
+        <button onclick="sendMessage()">전송</button>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script>
     let userId1 = document.querySelector('#hiddenId').innerText;
     let userAuth = document.querySelector('#hiddenAuth').innerText;
@@ -374,99 +330,94 @@
         }
     }
 
-    $(document).ready(function () {
-        let chatIdentifier = ""; // 선택된 챗봇 유형 저장
+    function useGuideChat() {
+        document.getElementById("selection").style.display = "none";
+        document.getElementById("messageInput").style.removeProperty("display");
+        let chatBody = document.getElementById("chatBody");
+        let guideChatText = document.getElementById("chatMessage");
+        let chatIdentifier = document.getElementById("chatIdentifier");
 
-        // ✅ 버튼이 동적으로 생성되었을 경우에도 이벤트가 적용되도록 변경
-        $(document).on("click", "#guideChatBtn", function () {
-            console.log("💬 서비스 이용 문의 버튼 클릭됨");
-            chatIdentifier = "guideChatbot";
-            startChatbot("서비스 이용 관련 문의를 입력해주세요.");
-        });
+        chatBody.style.removeProperty("display");
+        guideChatText.innerText = "서비스 이용에 문의사항을 입력해주세요.";
+        chatIdentifier.innerText = "guideChatbot";
+    }
+    function useSymptomChat() {
+        document.getElementById("selection").style.display = "none";
+        document.getElementById("messageInput").style.removeProperty("display");
+        let chatBody = document.getElementById("chatBody");
+        let symptomChatText = document.getElementById("chatMessage");
+        let chatIdentifier = document.getElementById("chatIdentifier");
 
-        $(document).on("click", "#symptomChatBtn", function () {
-            console.log("🏥 진료과 추천 버튼 클릭됨");
-            chatIdentifier = "symptomChatbot";
-            startChatbot("증상을 입력해주세요.");
-        });
+        chatBody.style.removeProperty("display");
+        symptomChatText.innerText = "증상을 입력해주세요.";
+        chatIdentifier.innerText = "symptomChatbot";
+    }
+    // contenteditable에서 span태그 값을 제외한 값 가져오기(유효성 검사를 위함)
+    function getCleanText() {
+        let chatInput = document.getElementById("chatInput").cloneNode(true); // 원본 보호
+        chatInput.querySelectorAll("span").forEach(span => span.remove()); // 모든 <span> 삭제
+        return chatInput.innerText.trim(); // 깨끗한 텍스트 반환
+    }
+    function sendMessage() {
+        let chatInput = document.getElementById("chatInput");
+        let chatBody = document.getElementById("chatBody");
+        let userMessage = chatInput.innerText.trim();
 
-        $(document).on("click", "#exitChat", function () {
-            console.log("🔙 챗봇 선택 화면으로 돌아가기");
-
-            // ✅ 기존 채팅 내용 숨기기
-            $("#chatBody").hide();
-            $("#messageInput").hide();
-            $("#exitChat").hide(); // Exit 버튼 숨기기
-
-            // ✅ 챗봇 선택 버튼 다시 표시
-            $("#selection").show();
-        });
-
-        function startChatbot(initialMessage) {
-            $("#chat-container").append(`<div class="message bot">${initialMessage}</div>`);
-            $("#selection").hide(); // 버튼 숨기기
-            $("#messageInput").show();
-            $("#chatBody").show();
-            $("#exitChat").show();
+        if (getCleanText() === "") {
+            alert("내용을 입력해주세요.");
+            return;
         }
 
-        $(document).on("click", "#sendBtn", function () {
-            let userMessage = $("#chatInput").text().trim();
-            if (userMessage === "") {
-                alert("메시지를 입력하세요.");
-                return;
+        // 사용자 메시지 표시
+        let userMsgWrapper = document.createElement("div");
+        userMsgWrapper.classList.add("messageWrapper", "userMessageWrapper");
+
+        let userMsgElement = document.createElement("div");
+        userMsgElement.classList.add("message", "userMessage");
+        userMsgElement.innerText = userMessage;
+
+
+        // 첫 번째 단어와 나머지 단어 분리
+        let message = chatInput.textContent.trim(); // display none되어있는 span 태그값 포함해서 불러오기
+        let insertMessage = message.split(" ");     // 공백 기준으로 단어 나누기
+        let identifier = insertMessage.shift();     // 첫 번째 단어 (배열에서 제거됨)
+        let mainMessage = insertMessage.join(" ");  // 나머지 단어들 다시 문자열로 결합
+
+        userMsgWrapper.appendChild(userMsgElement);
+        chatBody.appendChild(userMsgWrapper);
+        chatInput.innerText = "";
+
+        // 챗봇 응답 받기
+        $.ajax({
+            url: "/asklepios/api/chat/recommend",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                identifier: identifier,
+                mainMessage: mainMessage
+            }),
+            success: function(response) {
+                let botMsgWrapper = document.createElement("div");
+                botMsgWrapper.classList.add("messageWrapper", "botMessageWrapper");
+
+                let botIcon = document.createElement("img");
+                botIcon.src = "Img/chatbot.png";
+                botIcon.classList.add("chatIconSmall");
+
+                let botMsgElement = document.createElement("div");
+                botMsgElement.classList.add("message", "botMessage");
+                botMsgElement.innerText = "\" " + userMessage + " \" 증상에 대해 추천드리는 진료과는 [ " + response + " ] 입니다.";
+
+                botMsgWrapper.appendChild(botIcon);
+                botMsgWrapper.appendChild(botMsgElement);
+                chatBody.appendChild(botMsgWrapper);
+
+                // 자동 스크롤
+                chatBody.scrollTop = chatBody.scrollHeight;
+            },
+            error: function() {
+                alert("진료과 추천 요청 실패");
             }
-
-            // ✅ 사용자 메시지를 오른쪽에 정렬하여 추가
-            let userMsgWrapper = document.createElement("div");
-            userMsgWrapper.classList.add("messageWrapper", "userMessageWrapper"); // ✅ 사용자 메시지 오른쪽 정렬
-
-            let userMsgElement = document.createElement("div");
-            userMsgElement.classList.add("message", "userMessage");
-            userMsgElement.innerText = userMessage;
-
-            let userIcon = document.createElement("img");
-            userIcon.src = "Img/defaultGuest.png";
-            userIcon.classList.add("chatIconSmall");
-
-            userMsgWrapper.appendChild(userIcon);
-            userMsgWrapper.appendChild(userMsgElement);
-            chatBody.appendChild(userMsgWrapper);
-
-            $("#chatInput").text("");
-
-            $.ajax({
-                url: "/asklepios/api/chat",
-                type: "POST",
-                contentType: "application/json",
-                data: JSON.stringify({
-                    identifier: chatIdentifier,
-                    mainMessage: userMessage
-                }),
-                success: function (response) {
-                    console.log("✅ 서버 응답:", response);
-                    let botMsgWrapper = document.createElement("div");
-                    botMsgWrapper.classList.add("messageWrapper", "botMessageWrapper");
-
-                    let botIcon = document.createElement("img");
-                    botIcon.src = "Img/chatbot.png";
-                    botIcon.classList.add("chatIconSmall");
-
-                    let botMsgElement = document.createElement("div");
-                    botMsgElement.classList.add("message", "botMessage");
-                    botMsgElement.innerText = response
-
-                    botMsgWrapper.appendChild(botIcon);
-                    botMsgWrapper.appendChild(botMsgElement);
-                    chatBody.appendChild(botMsgWrapper);
-
-                    // 자동 스크롤
-                    chatBody.scrollTop = chatBody.scrollHeight;
-                },
-                error: function () {
-                    alert("챗봇 응답을 가져오는 데 실패했습니다.");
-                }
-            });
         });
-    });
+    }
 </script>

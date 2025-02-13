@@ -384,7 +384,7 @@ function showInfo(name, addr){
       alert("왜 안될까?");
     }
   });
-  document.body.style.backgroundColor="gray";
+  document.body.style.backgroundColor="white";
   modalInfo.style.backgroundColor="white";
   modalInfo.style.display="flex";
   hospitalname.innerText="상세정보";

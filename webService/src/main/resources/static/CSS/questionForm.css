@@ -1,0 +1,65 @@
+body {
+    font-family:'Pretendard-Regular', 'sans-serif';
+    width: 1920px;
+}
+.container1 {
+    margin-top: 30px;
+    margin-left: 30px;
+    width: 1200px;
+    height: 1000px;
+    box-sizing: border-box;
+    display: flex;
+}
+.title {
+    font-size: 50px;
+    font-weight: bold;
+    color: #3B82F6;
+    border-bottom: 5px solid #3B82F6;
+}
+.asideQuestion {
+    background-color: #3B82F6;
+    color: white;
+}
+form {
+    width: 1200px;
+}
+.td1 {
+    width: 300px;
+}
+.td2 {
+    width: 900px;
+}
+.title {
+    font-size: 50px;
+    font-weight: bold;
+    color: #3B82F6;
+    border-bottom: 5px solid #3B82F6;
+}
+table {
+    width: 1200px;
+    height:100%;
+}
+.small {
+    height: 100px;
+}
+.medium {
+    height: 200px;
+}
+.label {
+    font-size: 30px;
+}
+.fillAuto {
+    padding-left: 20px;
+    font-size: 30px;
+    width: 900px;
+    height: 80px;
+}
+.memo {
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-left: 10px;
+    width: 900px;
+    height: 400px;
+    font-size: 25px;
+    border-radius: 10px;
+}
