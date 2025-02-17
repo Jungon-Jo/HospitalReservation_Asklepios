@@ -2,11 +2,11 @@ package com.asklepios.hospitalreservation_asklepios.Controller;
 
 import com.asklepios.hospitalreservation_asklepios.Service.IF_ReservationService;
 import com.asklepios.hospitalreservation_asklepios.Service.IF_UserService;
-import com.asklepios.hospitalreservation_asklepios.VO.ChatVO;
 import com.asklepios.hospitalreservation_asklepios.VO.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,15 +19,26 @@ public class AsklepiosController {
     IF_ReservationService reservationservice;
 
     @GetMapping("/")
-    public String home() {
+    public String home(Model model)  {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+//            UserVO user=new UserVO();
+//            user.setUser_authority(authentication.getAuthorities().toArray()[0].toString());
+//            user.setUser_name(authentication.getName());
+//            System.out.println(authentication.getName());
+//            System.out.println(user.getUser_authority());
+//            System.out.println(authentication.isAuthenticated());
+//            model.addAttribute("user",user);
+
         return "redirect:home";
     }
 
     @GetMapping("/home")
     public String main(Model model) {
-//        String username= SecurityContextHolder.getContext().getAuthentication().getName();
-//        System.out.println(userservice.findUser(username));
+//
+
         model.addAttribute("user", userservice.findMember());
+
         return "home";
     }
 

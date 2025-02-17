@@ -199,6 +199,7 @@
                     <!--                    <th:block th:if="${user.user_authority == 'doctor'}">-->
                     <!--                        <img src="Img/defaultDoctor.png" alt="기본 프로필">-->
                     <!--                    </th:block>-->
+                    <img sec:authorize="hasRole('ROLE_scClient')" src="Img/defaultClient.png" alt="기본 프로필">
                 </div>
             </a>
         </div>
@@ -223,7 +224,7 @@
                 <hr style="margin-top: 10px; margin-bottom: 10px">
                 <a href="myPage" onclick="checkSession()">마이페이지</a>
                 <hr style="margin-top: 10px; margin-bottom: 10px">
-                <th:block th:if="${user.user_authority == 'client'}">
+                <th:block th:if="${user.user_authority == 'client'} or ${user.user_authority=='scClient'}">
                     <a href="reservation" onclick="checkSession()">빠른예약</a>
                     <hr style="margin-top: 10px; margin-bottom: 10px">
                     <a href="reservationStatusClient" onclick="checkSession()">예약현황</a>

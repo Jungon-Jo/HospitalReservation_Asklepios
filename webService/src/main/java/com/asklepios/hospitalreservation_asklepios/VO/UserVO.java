@@ -9,7 +9,8 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserVO {
+//세션정보 직렬화 문제로 인해 Serializable 구현
+public class UserVO implements Serializable {
     private String user_id;
     private String user_password;
     private String user_name;
