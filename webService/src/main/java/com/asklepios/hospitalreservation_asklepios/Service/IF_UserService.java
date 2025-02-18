@@ -25,4 +25,5 @@ public interface IF_UserService {
     public int countTotalReservation(String userId);
     public MemberVO findUser(String user_id);
     public MemberVO findMember();
+    public void modifySocialUserCommonInfo(UserVO userVO);
 }

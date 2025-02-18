@@ -17,6 +17,7 @@ import java.util.Map;
 @Getter
 @AllArgsConstructor
 @RequiredArgsConstructor
+//contextHolder에 저장할 수 있는 OAuth2User 구현받음
 public class PrincipalDetails implements OAuth2User, Serializable {
     @Getter
     private UserVO user;

@@ -57,16 +57,17 @@ public class AsklepiosController {
         //새로운 메서드 생성필요
         MemberVO member = userservice.findMember();
         user.setUser_authority("scClient");
-        user.setUser_name(member.getUser_name());
-        user.setUser_email(member.getUser_email());
         user.setUser_id(member.getUser_id());
         user.setUser_password("Oauth2");
-        user.setUser_info_agreement("agree");
         user.setUser_image(file.getName());
-        user.setUser_name_eng("Taekyun Shin");
+//        user.setUser_name_eng("Taekyun Shin");
         System.out.println(user.toString());
-        userservice.modifyUserCommonInfo(user);
+        userservice.modifySocialUserCommonInfo(user);
         return "redirect:/home";
+    }
+    @GetMapping("/showAgreement")
+    public String showAgreement(){
+        return "userJoin/socialAgreement";
     }
 
     @ResponseBody

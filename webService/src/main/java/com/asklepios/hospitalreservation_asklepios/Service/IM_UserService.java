@@ -170,5 +170,10 @@ public class IM_UserService implements IF_UserService{
         return usermapper.selectMember(username);
     }
 
+    @Override
+    public void modifySocialUserCommonInfo(UserVO userVO) {
+        usermapper.updateSocialUserCommonInfo(userVO);
+    }
+
 
 }

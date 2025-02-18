@@ -121,5 +121,14 @@
             user_doctor_graduate      = #{user_doctor_graduate}
         WHERE user_doctor_id = #{user_doctor_id}
     </update>
-
+    <update id="updateSocialUserCommonInfo">
+        UPDATE users
+        SET user_name_eng=#{user_name_eng},
+            user_register_number=#{user_register_number},
+            user_tel=#{user_tel},
+            user_addr=#{user_addr},
+            user_info_agreement=#{user_info_agreement},
+            user_image=#{user_image}
+        WHERE user_id=#{user_id}
+    </update>
 </mapper>

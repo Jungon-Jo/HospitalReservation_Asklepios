@@ -24,9 +24,9 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        System.out.println("getClientRegistration: "+userRequest.getClientRegistration().getRegistrationId());
-        System.out.println("getAccessToken: "+userRequest.getAccessToken());
-        System.out.println("getAttributes:"+super.loadUser(userRequest).getAttributes());
+//        System.out.println("getClientRegistration: "+userRequest.getClientRegistration().getRegistrationId());
+//        System.out.println("getAccessToken: "+userRequest.getAccessToken());
+//        System.out.println("getAttributes:"+super.loadUser(userRequest).getAttributes());
 
         OAuth2User oAuth2User = super.loadUser(userRequest);
         IF_OAuth2UserInfo oAuth2UserInfo=null;
@@ -56,13 +56,13 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
                     .user_authority(role)
                     .user_tel(phoneNumber)
 //                    .user_image(picture)
-                    .user_info_agreement("agree")
+//                    .user_info_agreement("agree")
                     .build();
             userService.addUserCommonInfo(newUser);
             System.out.println(newUser.toString());
         }
         UserVO loginUser=userService.printOneInfo(userId);
-        System.out.println(loginUser.toString());
+//        System.out.println(loginUser.toString());
         loginUser.setUser_name(userId);
         return new PrincipalDetails(loginUser,oAuth2User.getAttributes());
 

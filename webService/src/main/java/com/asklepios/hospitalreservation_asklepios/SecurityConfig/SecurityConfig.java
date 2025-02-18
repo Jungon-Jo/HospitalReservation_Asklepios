@@ -52,9 +52,9 @@ public class SecurityConfig  {
                 "/bboard_all","/bboard_campaign","/bboard_med","/doctorreservationstatus","/acceptreservation","/cancelreservation","/verify_password_mypage",
                 "/bboard_health","/bboard_free","/detail", "/updateUserInfo","/chat","/recommend","/search","/api/chat/recommend","/api/medical/recommend", "/qanda", "/qanda/questionForm","/qnaSubmit",
                     "/login/oauth2/code/google","/login/oauth2/code/naver","/gettimedata","/getgenderdata","/getagedata","/socialInfo").permitAll() // 요청은 허용
-                .requestMatchers("/reservation","/reservationForm","/reserve").hasRole("client")
+                .requestMatchers("/reservation","/reservationForm","/reserve").hasAnyRole("client","scClient")
             .requestMatchers("/registration").hasRole("doctor")
-            .requestMatchers("/myPage","/excelDownload").hasAnyRole("doctor","client")
+            .requestMatchers("/myPage","/excelDownload").hasAnyRole("doctor","client","scClient")
             .anyRequest().authenticated()
         )
         .exceptionHandling(exception -> exception

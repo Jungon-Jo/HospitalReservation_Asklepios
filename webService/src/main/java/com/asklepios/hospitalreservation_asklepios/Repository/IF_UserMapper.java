@@ -32,4 +32,5 @@ public interface IF_UserMapper {
     int selectReservationCount(String doctorCode);
     int selectTotalReservationCount(String userId);
     MemberVO selectMember(String user_id);
+    void updateSocialUserCommonInfo(UserVO userVO);
 }
