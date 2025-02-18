@@ -21,26 +21,26 @@ public class FileController {
     private QandAService service;
 
     //이미지를 포함한 질문이 들어오면 동작
-    @PostMapping("/file_upload")
-    @ResponseBody
-    public ResponseEntity<String> file_upload(@RequestParam(value = "file",required = false)List<MultipartFile> file,@RequestParam("title")String title,
-                                              @RequestParam("content")String content , @RequestParam("tag")String tag, @RequestParam("sub")String sub,@ModelAttribute QuestionVO questionVO){
-
-        //질문을 작성한 사용자 확인
-        /*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication!= null){
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            userDetails.getUsername()
-        }*/
-
-        boolean result =service.save_text(file,questionVO);
-        if (result){
-            return ResponseEntity.ok().body("success");
-        }else{
-            return ResponseEntity.badRequest().body("fail");
-        }
-
-    }
+//    @PostMapping("/file_upload")
+//    @ResponseBody
+//    public ResponseEntity<String> file_upload(@RequestParam(value = "file",required = false)List<MultipartFile> file,@RequestParam("title")String title,
+//                                              @RequestParam("content")String content , @RequestParam("tag")String tag, @RequestParam("sub")String sub,@ModelAttribute QuestionVO questionVO){
+//
+//        //질문을 작성한 사용자 확인
+//        /*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication!= null){
+//            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+//            userDetails.getUsername()
+//        }*/
+//
+//        boolean result =service.save_text(file,questionVO);
+//        if (result){
+//            return ResponseEntity.ok().body("success");
+//        }else{
+//            return ResponseEntity.badRequest().body("fail");
+//        }
+//
+//    }
 
     //답변 저장
     @PostMapping("/answer")

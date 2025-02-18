@@ -22,5 +22,5 @@ public interface IF_SearchService {
     public Workbook excelPrint(List<Hospital_doctorVO> hospitalList) throws IOException;
     public int[] getGenderData(String hospital_code);
     public HashMap<String, Object> getTimeData(String hospital_code);
-
+    public HashMap<String, Object> getAgeData(String hospital_code);
 }

@@ -17,4 +17,5 @@ public interface IF_SearchMapper {
     public Integer avgScore(String hospitalCode);
     public List<ChartVO> selectGenderData(String hospital_code);
     public List<ChartVO> selectTimeData(String hospital_code);
+    public List<ChartVO>selectAgeData(String hospital_code);
 }

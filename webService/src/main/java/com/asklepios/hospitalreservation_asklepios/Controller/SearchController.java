@@ -115,4 +115,9 @@ public class SearchController {
 //        System.out.println(map);
         return map;
     }
+    @GetMapping("/getagedata")
+    public HashMap<String,Object> getAge(@RequestParam("hospitalCode") String hospitalCode){
+        HashMap<String,Object> map=searchService.getAgeData(hospitalCode);
+        return map;
+    }
 }

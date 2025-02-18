@@ -40,4 +40,21 @@
         group by ru.reservation_time, ru.reservation_accept
         order by ru.reservation_time asc
     </select>
+    <select id="selectAgeData" resultType="com.asklepios.hospitalreservation_asklepios.VO.ChartVO">
+        SELECT ru.reservation_hospital_code,
+               ru.reservation_accept,
+               ru.user_register_number,
+               ru.num,
+               CASE
+                   when ru.num=1 OR ru.num=2 THEN (SELECT year(now()) FROM dual)-concat(19,substring(ru.user_register_number,1,2))
+                   when ru.num=3 OR ru.num=4 THEN (SELECT year(now()) FROM dual)-concat(20,substring(ru.user_register_number,1,2))
+               END AS age
+        FROM (SELECT r.*,
+                     u.*,
+                     substring(substring_index(u.user_register_number,'-',-1),1,1) AS num
+              FROM reservation AS r
+               LEFT JOIN users AS u
+                ON r.reservation_user_id=u.user_id) AS ru
+        WHERE ru.reservation_hospital_code=#{hospital_code} AND ru.reservation_accept="승인"
+    </select>
 </mapper>
