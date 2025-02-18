@@ -51,7 +51,7 @@ public class SecurityConfig  {
                 "/agreement","/commoninfo","/doctorinfo","/userjoin","/getreview","/filter","/insertedID","/hospitalList",
                 "/bboard_all","/bboard_campaign","/bboard_med","/doctorreservationstatus","/acceptreservation","/cancelreservation","/verify_password_mypage",
                 "/bboard_health","/bboard_free","/detail", "/updateUserInfo","/chat","/recommend","/search","/api/chat/recommend","/api/medical/recommend", "/qanda", "/qanda/questionForm","/qnaSubmit",
-                    "/login/oauth2/code/google","/login/oauth2/code/naver","/gettimedata","/getgenderdata").permitAll() // 요청은 허용
+                    "/login/oauth2/code/google","/login/oauth2/code/naver","/gettimedata","/getgenderdata","/getagedata","/socialInfo").permitAll() // 요청은 허용
                 .requestMatchers("/reservation","/reservationForm","/reserve").hasRole("client")
             .requestMatchers("/registration").hasRole("doctor")
             .requestMatchers("/myPage","/excelDownload").hasAnyRole("doctor","client")
@@ -85,7 +85,7 @@ public class SecurityConfig  {
                               .userInfoEndpoint(userInfoEndpoint ->
                                       userInfoEndpoint
                                               .userService(principalOauth2UserService))
-                              .defaultSuccessUrl("/",true)
+                              .defaultSuccessUrl("/home",true)
                               );
 
     return http.build();

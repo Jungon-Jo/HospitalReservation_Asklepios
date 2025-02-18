@@ -247,6 +247,7 @@
    #timeChart{
      display:inline-block;
    }
+
 </style>
 <body>
 <div style="position: fixed" th:replace="~{include/header}"></div>
@@ -356,8 +357,9 @@
               </tbody>
             </table>
             <div id="chart">
-              <canvas id="genderChart"></canvas>
-              <canvas id="timeChart"></canvas>
+              <canvas id="genderChart" class="chart"></canvas>
+              <canvas id="timeChart" class="chart"></canvas>
+              <canvas id="ageChart" class="chart"></canvas>
             </div>
             <div class="infoTitle">의사정보</div>
             <table id="doctorTable">
@@ -648,6 +650,8 @@
         getGenderData(clickHospital);
         //병원코드로 시간대별 방문자 수 차트 그리기
         getTimeData(clickHospital);
+        //병원코드로 나이대별 방문자 수 차트 그리기
+        getAgeData(clickHospital);
         //모달창 병원정보 입력
         //혜린 리스트 숨기기
         document.querySelector('.searchList').style.display = 'none';
@@ -862,6 +866,7 @@
         ]
       },
       options: {
+        responsive: true,
         title: {
           display: true,
           text: '방문자 성비',
@@ -967,8 +972,95 @@
       }
     })
   }
-</script>
 
+  //병원코드로 방문자 나이대 정보 가져오기
+  function getAgeData(clickHospital) {
+    $.ajax({
+      type: "GET",
+      url: "getagedata",
+      data: {
+        "hospitalCode": clickHospital.hospital_code
+      },
+      success: function (data) {
+        // alert(data);
+        // console.log(data);
+        console.log(Object.values(data));
+        drawAgeChart(data);
+      },
+      error() {
+        alert("데이터를 불러올 수 없습니다.");
+      }
+    })
+  }
+  //나이대별로 방문자 수 차트 그리기
+  function drawAgeChart(data){
+    let ageChart=document.getElementById("ageChart");
+    if(window.myAgeChart){
+      window.myAgeChart.destroy();
+    }
+    window.myAgeChart=new Chart(ageChart,{
+      type:"bar",
+      data: {
+        labels: Object.keys(data),
+        datasets: [
+          {
+            label: "나이별 방문자 수",
+            data: Object.values(data),
+            borderColor: 'rgba(75, 192, 192, 1)', // 선 색상
+            backgroundColor: 'rgba(75, 192, 192, 0.2)', // 선 아래 배경 색상
+            borderWidth:1,
+          }
+        ]
+      },
+      options: {
+        responsive: true, // 반응형 차트
+        title: {
+          display: true,
+          text: '나이대별 방문자 수',
+          fontSize: 20
+        },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Time'
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Visitor Count'
+            },
+
+          },
+          xAxes:[{
+            ticks:{
+              fontSize:20,
+            }
+          }],
+          yAxes:[{
+            ticks:{
+              beginAtZero: true,
+              fontSize : 14,
+              stepSize: 5,
+            }
+          }]
+
+        },
+        //라벨 위에서도 hover 동작하도록 설정
+        tooltips:{
+          mode:"index",
+          intersect:false,
+          titleFontSize: 20,
+          bodyFontSize: 20,
+        },
+        legend:{
+          display: false,
+        }
+      }
+    })
+  }
+</script>
 
 
 

@@ -9,4 +9,5 @@ public class ChartVO {
     private String reservation_accept;
     private String reservation_time;
     private Integer count;
+    private Integer age;
 }

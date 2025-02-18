@@ -233,4 +233,32 @@ public class IM_SearchService implements IF_SearchService{
 //        System.out.println(timeData);
         return timeData;
     }
+
+    @Override
+    public HashMap<String, Object> getAgeData(String hospital_code) {
+        List<ChartVO> chartData=searchMapper.selectAgeData(hospital_code);
+        HashMap<String,Object> ageData=new LinkedHashMap<>();
+        String[] ageArray={"10대","20대","30대","40대","50대","60대","70대","80대"};
+        //가져온 데이터 나이대별로 count
+        int[] countAge=new int[8];
+        for(int i=0;i<countAge.length;i++){
+            for(ChartVO chartVO:chartData){
+                int calAge=chartVO.getAge()/10;
+                if(calAge==(i+1)){
+                    countAge[i]++;
+                }
+            }
+        }
+        //HashMap에 나이대 순서대로 count값과 함께 저장
+        for(int i=0;i<ageArray.length;i++) {
+            ageData.put(ageArray[i], countAge[i]);
+        }
+
+//        for(ChartVO chartVO:chartData){
+//            System.out.println(chartVO.getAge());
+//        }
+//
+//        System.out.println(ageData);
+        return ageData;
+    }
 }

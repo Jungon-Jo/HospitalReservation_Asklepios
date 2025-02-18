@@ -40,6 +40,22 @@
 			font-size: 25px;
 			color: rgb(138, 137, 137);
 		}
+	#socialLogin{
+
+	}
+	#google{
+		display: inline-block;
+		margin-right: 10px;
+		height:70px;
+		width:250px;
+	}
+	#naver{
+		display: inline-block;
+		padding-bottom: 10px;
+		margin-left: 10px;
+		height: 80px;
+		width:250px;
+	}
 	</style>
 </head>
 <body>
@@ -73,19 +89,15 @@
 		<li><a class="">&nbsp;&nbsp;|&nbsp;&nbsp;</a></li>
 		<li><a href="/asklepios/userjoin" class="">회원가입</a></li>
 	</ul>
-	<ul class="flex justify-center mt-5">
-		<li>
-			<a href="oauth2/authorization/google">
-				<img width="48" height="48" src="https://img.icons8.com/color/48/google-logo.png" alt="google-logo"/>
-				Google id로 로그인
-			</a>
-		</li>
-		<li>
-			<a href="oauth2/authorization/naver" >
-				<img width="120" height="48" src="../../static/Img/btnG.png" alt="naver"/>
-			</a>
-		</li>
-	</ul>
+	<div id="socialLogin" class="flex justify-center mt-5">
+		<a href="oauth2/authorization/google">
+			<img id="google" src="Img/btnG.png" alt="구글 로그인">
+		</a>
+		<a href="oauth2/authorization/naver" >
+			<img id="naver" src="Img/btnN.png" alt="네이버 로그인">
+		</a>
+	</div>
+
 </div>
 </body>
 <script>
