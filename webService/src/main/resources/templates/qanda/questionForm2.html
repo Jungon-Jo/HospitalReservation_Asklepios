@@ -16,38 +16,36 @@
 </head>
 <body>
 <div th:replace="~{include/header}"></div>
-<div style="display:flex; width: 1920px; height: 1200px; margin-bottom: 80px;">
+<div style="display:flex; width: 1920px; height: auto;">
   <div style="display: inline-block;" th:replace="~{include/leftAside/qandaAside}"></div>
-    <div class="container1" style="max-height: 1200px; overflow-y: auto;">
+    <div class="container1" style="height: auto;">
     <table>
-        <tr class="small m-0">
-          <td class="td1 p-0">
-            <div class="data-display text-5xl py-0" th:text="${list.title}">
-              제목
-            </div>
-          </td>
-        </tr>
-        <tr class="small m-0 h-auto">
-          <td colspan="1" class="td2 p-0">
-            <div class="data-display flex space-x-2">
-              <p class="text-gray-500 text-lg" th:text="${list.user_name}">
-              김**
-              </p>
-              <p class="text-gray-500 text-lg" th:text="${list.date}">
-              방금 전
-              </p>
-            </div>
-          </td>
-        </tr>
-
-
-        <tr class="medium">
-          <td colspan="2" class="td2">
-            <div class="data-display text-2xl py-0"  th:text="${list.content}">
-              내용
-            </div>
-            <input type="hidden" id="user_content" th:value="${list.content}">
-          </td>
+      <tr class="small m-0">
+        <td class="td1 p-0">
+          <div class="data-display text-5xl py-0" th:text="${list.title}">
+            제목
+          </div>
+        </td>
+      </tr>
+      <tr class="small m-0 h-auto">
+        <td colspan="1" class="td2 p-0">
+          <div class="data-display flex space-x-2">
+            <p class="text-gray-500 text-lg" th:text="${list.user_name}">
+            김**
+            </p>
+            <p class="text-gray-500 text-lg" th:text="${list.date}">
+            방금 전
+            </p>
+          </div>
+        </td>
+      </tr>
+      <tr class="medium">
+        <td colspan="2" class="td2">
+          <div class="data-display text-2xl py-0"  th:text="${list.content}">
+            내용
+          </div>
+          <input type="hidden" id="user_content" th:value="${list.content}">
+        </td>
       </tr>
       <!-- Image Section -->
       <tr class="small" th:each="item: ${list.imgs}">
@@ -55,52 +53,47 @@
           <img th:src="@{${item.fileName}}" alt="Image description" class="w-32 h-32 object-cover">
         </td>
       </tr>
+      <!-- Doctor Information Section -->
+      <tr class="small">
+        <td colspan="2" class="td2">
+          <!-- Divider and "정형외과" text section -->
+          <div class="bg-gray-200 py-2">
+            <p class="text-left text-xl font-semibold">정형외과</p>
+          </div>
+        </td>
+      </tr>
 
-
-        <!-- Doctor Information Section -->
-        <tr class="small">
-          <td colspan="2" class="td2">
-            <!-- Divider and "정형외과" text section -->
-
-            <div class="bg-gray-200 py-2">
-              <p class="text-left text-xl font-semibold">정형외과</p>
+      <tr class="small" th:each="item : ${list.answerlist}">
+        <td colspan="1" class="td2">
+          <div class="data-display flex items-center">
+            <img src="이미지 URL" alt="이미지 설명" class="w-12 h-12 rounded-full mr-4">
+            <p class="text-gray-500 text-lg" th:text="${item.tag}"> 해당 전문과</p>
+            <p class="text-gray-500 text-lg" th:text="${item.sub}"> 병원명</p>
+          </div>
+            <div class="data-display flex space-x-2">
+              <p class="text-gray-500 text-lg" th:text="${item.user_name}"> 의사이름</p>
+              <p class="text-gray-500 text-lg" th:text="${item.date}"> 작성시간</p>
             </div>
+        </td>
 
+
+      <!-- Faint Line -->
+        <tr th:each="item : ${list.answerlist}">
+          <td colspan="3">
+            <div class="faint-line border-t border-gray-400 opacity-50 my-0"></div>
           </td>
         </tr>
 
-        <tr class="small" th:each="item : ${list.answerlist}">
-          <td colspan="1" class="td2">
-            <div class="data-display flex items-center">
-              <img src="이미지 URL" alt="이미지 설명" class="w-12 h-12 rounded-full mr-4">
-              <p class="text-gray-500 text-lg" th:text="${item.tag}"> 해당 전문과</p>
-              <p class="text-gray-500 text-lg" th:text="${item.sub}"> 병원명</p>
+      <!-- Doctor's Response Section -->
+        <tr class="medium m-0" th:each="item : ${list.answerlist}">
+          <td colspan="2" class="td2 p-0">
+            <div class="data-display text-2xl py-0"th:text="${item.content}" >
+            내용
             </div>
-              <div class="data-display flex space-x-2">
-                <p class="text-gray-500 text-lg" th:text="${item.user_name}"> 의사이름</p>
-                <p class="text-gray-500 text-lg" th:text="${item.date}"> 작성시간</p>
-              </div>
-
           </td>
-
-
-        <!-- Faint Line -->
-          <tr th:each="item : ${list.answerlist}">
-            <td colspan="3">
-              <div class="faint-line border-t border-gray-400 opacity-50 my-0"></div>
-            </td>
-          </tr>
-
-        <!-- Doctor's Response Section -->
-          <tr class="medium m-0" th:each="item : ${list.answerlist}">
-            <td colspan="2" class="td2 p-0">
-              <div class="data-display text-2xl py-0"th:text="${item.content}" >
-              내용
-              </div>
-            </td>
-          </tr>
+        </tr>
       </tr>
-      </table>
+    </table>
     </div>
 
   <aside id="aside2" th:insert="~{include/rightAside}"></aside>

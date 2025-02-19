@@ -250,7 +250,7 @@
 </style>
 <body>
 <div style="position: fixed" th:replace="~{include/header}"></div>
-<div class="homeContainer" style="height: 1530px;">
+<div class="homeContainer" style="height: 1530px; margin-bottom: 30px;">
 
   <aside id="aside1" th:replace="~{include/leftAside/hospitalListAside}">
 
@@ -386,13 +386,12 @@
       </div>
     </div>
   </section>
-  <aside id="aside2" th:insert="~{include/rightAside}"></aside>
+  <aside style="margin-top: 30px;" id="aside2" th:insert="~{include/rightAside}"></aside>
 </div>
 <!--<footer id="ad" >-->
 <!--    <h1>광고</h1>-->
 <!--</footer>-->
-<footer id="footer" th:replace="~{include/footer}">
-</footer>
+<footer id="footer" th:replace="~{include/footer}"></footer>
 </body>
 </html>
 <script th:inline="javascript">

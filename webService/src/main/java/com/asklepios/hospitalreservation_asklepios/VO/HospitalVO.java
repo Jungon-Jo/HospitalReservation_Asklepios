@@ -19,8 +19,6 @@ public class HospitalVO {
   private String hospital_time;
   private String hospital_notice;
   private String hospital_intro;
-  private String hospital_accept;
-  private String hospital_certification;
 
 
 }

@@ -70,7 +70,13 @@ function duplicateHospital(){
   let hospitalDetailAddress = document.querySelector('#detailAddress');
 
   if (hospitalName === '') {
-    Swal.fire('필수항목 미입력', '병원명을 입력해주세요.','error');
+    Swal.fire({
+      icon: 'warning',
+      title: '입력오류',
+      text: '병원명을 입력해주세요.',
+      confirmButtonColor: '#3B82F6',
+      confirmButtonText: '확인'
+    });
   }else{
     hospitalNameFlag = true;
   }
@@ -118,8 +124,7 @@ function validateForm(){
   let tel2 = document.querySelector('#tel2').value;
   let tel3 = document.querySelector('#tel3').value;
   let time1 = document.querySelector('#openTime').value;
-  let time2 = document.querySelector('#closeTsime').value;
-  let certification = document.querySelector('#hospital_certification').value;
+  let time2 = document.querySelector('#closeTime').value;
   let resultRadio = $('input[name=default-radio]:checked').val();
   let resultAddr = addr1 + ' ' + addr2;
   let resultTel = tel1 + '-' + tel2 + '-' + tel3;
@@ -128,23 +133,38 @@ function validateForm(){
   document.querySelector('#hospital_tel').value = resultTel;
   document.querySelector('#hospital_date').value = resultRadio;
   document.querySelector('#hospital_time').value = resultTime;
+  // console.log(document.querySelector('#hospital_addr').value);
+  console.log(resultRadio)
   if (addr1 === '') {
-    Swal.fire('필수항목 미입력', '주소를 입력해주세요.','error');
+    Swal.fire({
+      icon: 'warning',
+      title: '입력 오류',
+      text: '주소를 입력해주세요.',
+      confirmButtonColor: '#3B82F6',
+      confirmButtonText: '확인'
+    });
     return false;
   }
 
   if (tel1 === '' || tel2 === '' || tel3 === '') {
-    Swal.fire('필수항목 미입력', '병원 연락처를 입력해주세요.','error');
+    Swal.fire({
+      icon: 'warning',
+      title: '입력 오류',
+      text: '병원 연락처를 입력해주세요.',
+      confirmButtonColor: '#3B82F6',
+      confirmButtonText: '확인'
+    });
     return false;
   }
 
   if (time1 === '' || time2 === '') {
-    Swal.fire('필수항목 미입력', '근무 시간을 입력해주세요.','error');
-    return false;
-  }
-
-  if(!certification){
-    Swal.fire('필수항목 미입력', '인증서는 필수입니다.','error');
+    Swal.fire({
+      icon: 'warning',
+      title: '입력 오류',
+      text: '근무시간을 입력해주세요.',
+      confirmButtonColor: '#3B82F6',
+      confirmButtonText: '확인'
+    });
     return false;
   }
 
@@ -157,4 +177,3 @@ function validateForm(){
     return flag;
   }
 }
-

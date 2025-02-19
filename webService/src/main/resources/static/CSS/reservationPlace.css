@@ -3,11 +3,13 @@ body {
   width: 1920px;
 }
 #menu_wrap.container {
-  max-width: 1200px !important; /* 강제 적용 */
+  max-width: 1260px !important; /* 강제 적용 */
+  margin-right: 30px !important;
+  margin-bottom: 30px !important;
 }
 .container {
-  width: 1200px;
-  max-width: 1200px;
+  width: 1260px;
+  max-width: 1260px;
   box-sizing: border-box;
   margin-top: 30px;
   margin-left: 30px;
@@ -18,7 +20,7 @@ body {
   color: #3B82F6;
 }
 .searchPlace {
-  width: 1200px;
+  width: 1260px;
   height: 150px;
   margin-bottom: 20px;
   box-sizing: border-box;
@@ -27,11 +29,11 @@ body {
   border-bottom: 1px solid #3B82F6;
 }
 .shopSchList {
-  width: 1200px;
+  width: 1260px;
   box-sizing: border-box;
 }
 .list {
-  width: 530px;
+  width: 560px;
   height: 800px;
   border: 1px solid #bfdbfe;
   margin-right: 20px;
@@ -42,7 +44,7 @@ body {
   height: 750px;
 }
 .map {
-  width: 650px;
+  width: 680px;
   height: 800px;
 }
 .magnify {

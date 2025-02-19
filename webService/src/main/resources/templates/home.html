@@ -18,67 +18,62 @@
       font-family: 'Tenada', 'sans-serif';
     }
     #intro {
-      width: 1200px;
+      width: 100%;
       height: 600px;
       background: #3b82f6;
-      box-shadow: 0px 5px 15px 5px rgba(0, 0, 0, 0.5)
+      box-shadow: 0px 5px 15px 5px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center; /* 세로 중앙 정렬 */
+      justify-content: space-between; /* 좌우 정렬 */
+    }
+    #introTextContainer {
+      display: inline-block;
+      width: 900px;
+      padding-left: 100px;
     }
     .introTitle {
       font-family: 'Pretendard-Regular', 'sans-serif';
       font-size: 50px;
       font-weight: bold;
       color: white;
-      position: relative;
-      top: 50px;
-      left: 60px;
+      width: 900px;
     }
     .introSubject {
       font-family: 'Pretendard-Regular', 'sans-serif';
       font-size: 35px;
       color: white;
-      position: relative;
-      top: -1830px;
-      left: 60px;
+      width: 900px;
     }
     .introLogo {
       font-family: 'Tenada', 'sans-serif';
       font-size: 70px;
       font-weight: bold;
       color: white;
-      position: relative;
-      top: -1720px;
-      left: 60px;
-      }
-    #slideOne{
-      width: 500px;
-      position: relative;
-      top: -75px;
-      left: 650px;
     }
-    #slideTwo{
-      width: 500px;
-      position: relative;
-      top: -525px;
-      left: 650px;
+    #slideImg {
+      width: 660px;
+      height: 600px; /* 부모 요소의 높이 명확히 지정 */
+      position: relative; /* 자식 absolute 요소의 기준점 설정 */
+      overflow: hidden; /* 부모 요소를 벗어나는 이미지 숨기기 */
+      display: flex;
+      align-items: center; /* 수직 중앙 정렬 */
+      justify-content: center; /* 수평 중앙 정렬 */
     }
-    #slideThree{
-      width: 500px;
-      position: relative;
-      top: -1010px;
-      left: 650px;
+    #slideOne, #slideTwo, #slideThree, #slideFour {
+      width: 90%; /* 부모 요소 크기 따르도록 설정 */
+      height: auto; /* 가로 비율 유지 */
+      position: absolute;
+      top: 50%; /* 부모 요소의 50% 지점 */
+      left: 50%;
+      transform: translate(-50%, -50%); /* 정확히 중앙으로 이동 */
     }
-    #slideFour{
-      width: 500px;
-      position: relative;
-      top: -1505px;
-      left: 650px;
-    }
+
     #popularHospital{
-      width: 1150px;
+      width: 100%;
       height: 500px;
       background: white;
-      margin-top: 150px;
-      margin-left: 50px;
+      margin-top: 40px;
+      /*margin-left: 50px;*/
       padding-top: 60px;
       box-shadow: -1px 2px 15px 5px rgba(0, 0, 0, 0.2);
     }
@@ -89,7 +84,7 @@
       color: #3b82f6;
       position: relative;
       top: -385px;
-      left: 620px;
+      left: 920px;
       width: 500px;
     }
     .popularSubject {
@@ -98,7 +93,7 @@
       color: #3b82f6;
       position: relative;
       top: -370px;
-      left: 620px;
+      left: 920px;
       width: 500px;
     }
     .popularEnd{
@@ -106,8 +101,8 @@
       font-size: 35px;
       color: #3b82f6;
       position: relative;
-      top: -330px;
-      left: 620px;
+      top: -345px;
+      left: 920px;
       width: 500px;
     }
     #rank{
@@ -117,7 +112,7 @@
     #first {
       font-family: 'Pretendard-Regular', 'sans-serif';
       position: relative;
-      width: 500px;
+      width: 700px;
       height: 60px;
       background: #2F568A;
       margin-bottom: 20px;
@@ -131,7 +126,7 @@
     #second {
       font-family: 'Pretendard-Regular', 'sans-serif';
       position: relative;
-      width: 450px;
+      width: 650px;
       height: 60px;
       background: #4075BC;
       margin-bottom: 20px;
@@ -145,7 +140,7 @@
     #third{
       font-family: 'Pretendard-Regular', 'sans-serif';
       position: relative;
-      width: 400px;
+      width: 600px;
       height: 60px;
       background: #5B88C5;
       margin-bottom: 20px;
@@ -159,7 +154,7 @@
     #forth{
       font-family: 'Pretendard-Regular', 'sans-serif';
       position: relative;
-      width: 350px;
+      width: 550px;
       height: 60px;
       background: #769CCF;
       margin-bottom: 20px;
@@ -173,7 +168,7 @@
     #fifth {
       font-family: 'Pretendard-Regular', 'sans-serif';
       position: relative;
-      width: 300px;
+      width: 500px;
       height: 60px;
       background: #91B0D8;
       padding-left: 20px;
@@ -184,18 +179,24 @@
       border-bottom-right-radius: 100px;
     }
     #review{
-      width: 1150px;
-      height: 500px;
+      width: 100%;
+      height: 450px;
       background: #3b82f6;
-      margin-top: 150px;
-      margin-right: 50px;
+      margin-top: 40px;
+      /*margin-right: 50px;*/
       box-shadow: 0px 5px 15px 5px rgba(0, 0, 0, 0.5)
     }
     #reviewImage {
-      width: 500px;
+      width: 1000px;
       position: relative;
       top: -320px;
-      left: 580px;
+      left: 600px;
+      display: flex;
+    }
+    #reviewImageStar, #reviewImageMsg {
+      flex: 1;
+      max-width: 400px; /* 최대 너비 지정 */
+      text-align: center; /* 이미지 가운데 정렬 */
     }
     .reviewTitle{
       width: 550px;
@@ -205,7 +206,7 @@
       color: white;
       position: relative;
       left: 60px;
-      top: 50px;
+      top: 30px;
     }
     .reviewSubject{
       width: 550px;
@@ -216,33 +217,37 @@
       left: 60px;
       top: 100px;
     }
-    #membership{
-      width: 1200px;
+    #membership {
+      width: 100%;
       height: 700px;
       background: white;
-      margin-top: 150px;
-      box-shadow: 0px 5px 15px 5px rgba(0, 0, 0, 0.5)
+      margin-top: 40px;
+      box-shadow: 0px 5px 15px 5px rgba(0, 0, 0, 0.5);
+      margin-bottom: 30px;
+
+      /* 🔹 flex 적용 */
+      display: flex;
+      flex-direction: column;
+      align-items: center;  /* 수평 중앙 정렬 */
+      justify-content: center;  /* 수직 중앙 정렬 */
     }
-    #membershipImage{
-      position: relative;
-      top: 40px;
-      left: 115px;
-    }
-    .membershipTitle{
+    .membershipTitle {
       font-family: 'Pretendard-Regular', 'sans-serif';
       font-size: 50px;
       font-weight: bold;
       color: #3b82f6;
-      position: relative;
-      top: 30px;
       text-align: center;
+      margin-bottom: 20px;  /* 간격 추가 */
     }
-    .membershipSubject{
+    #membershipImage {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;  /* 간격 추가 */
+    }
+    .membershipSubject {
       font-family: 'Pretendard-Regular', 'sans-serif';
       font-size: 35px;
       color: #3b82f6;
-      position: relative;
-      top: 70px;
       text-align: center;
       padding: 5px;
     }
@@ -270,26 +275,31 @@
       opacity: 1;
       transform: translateY(0);
     }
+    #footer{
+      display: flex;
+      position: sticky;
+      bottom: 0px;
+    }
   </style>
 </head>
 <body>
 <div th:replace="~{include/header}"></div>
-<div class="homeContainer" style="height: 2900px;">
-  <aside id="aside1">
-  </aside>
-  <section>
+<div class="homeContainer">
+  <div id="sectionHome">
     <div id="intro" class=" animate-on-top">
-      <div class="introTitle">예약이 힘드신가요?</div>
-      <div class="introTitle">기다리는 시간이 지치시죠?</div>
+      <div id="introTextContainer">
+        <div class="introTitle">예약이 힘드신가요?</div>
+        <div class="introTitle" style="margin-bottom: 20px">기다리는 시간이 지치시죠?</div>
+        <div class="introSubject"><span style="font-size:45px; font-weight: bold;" class="tenada">ASKLEPIOS</span> 에서 손쉽게 예약하고</div>
+        <div class="introSubject" style="margin-bottom: 20px">대기 없이 진료를 받아보세요 !</div>
+        <div class="introLogo">ASKLEPIOS</div>
+      </div>
       <div id="slideImg">
         <div id="slideOne"><img src="Img/reservationPlace.png" alt="" style="border-radius: 20px; box-shadow: 10px 0 5px 0 rgba(0, 0, 0, 0.2);"></div>
         <div id="slideTwo"><img src="Img/review.png" alt="" style="border-radius: 20px; box-shadow: 10px 0 5px 0 rgba(0, 0, 0, 0.2); "></div>
         <div id="slideThree"><img src="Img/reservation.png" alt="" style="border-radius: 20px; box-shadow: 10px 0 5px 0 rgba(0, 0, 0, 0.2); "></div>
         <div id="slideFour"><img src="Img/reservationForm.png" alt="" style="border-radius: 20px; box-shadow: 10px 0 5px 0 rgba(0, 0, 0, 0.2);"></div>
       </div>
-      <div class="introSubject"><span style="font-size:45px; font-weight: bold;" class="tenada">ASKLEPIOS</span> 에서 손쉽게 예약하고</div>
-      <div class="introSubject">대기 없이 진료를 받아보세요 !</div>
-      <div class="introLogo">ASKLEPIOS</div>
     </div>
     <div id="popularHospital" class="animate-on-left">
       <div id="rank">
@@ -306,7 +316,7 @@
 
         <div class="popularEnd">로그인하면 가장 많이 예약된 병원을 한눈에 확인할 수 있습니다.</div>
         <div class="popularEnd">지금 바로 확인하세요!"</div>
-        <img src="Img/bluearrow.gif" alt="" style="position: relative; width: 200px; z-index: 3; top: -580px; left: 440px; transform: scale(0.7); filter: saturate(20);">
+        <img src="Img/bluearrow.gif" alt="" style="position: relative; width: 200px; z-index: 3; top: -580px; left: 690px; transform: scale(0.7); filter: saturate(20);">
       </div>
     </div>
     <div id="review" class="animate-on-right">
@@ -317,9 +327,15 @@
         <div class="reviewSubject">고객들의 솔직한 리뷰를 확인하고</div>
         <div class="reviewSubject">가장 만족스러운 병원을 선택해보세요.</div>
       </div>
-      <div id="reviewImage" class="animate-on-right">
-        <img src="Img/review.png" alt="" style="border-radius: 20px; box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.5);width: 450px;position: relative;top: 20px;left: 60px;">
-        <img src="Img/circle.gif" alt="" style="position: relative;width: 150px;z-index: 3;top: -210px;left: 50px;transform: scale3d(1.5, 1.5, 1.5);">
+      <div id="reviewImage">
+        <div id="reviewImageStar" class="animate-on-right" style="display: inline-block">
+          <img src="Img/review.png" alt="" style="border-radius: 20px; box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.5);width: 350px;position: relative;top: 50px;left: 60px;">
+          <img src="Img/circle.gif" alt="" style="position: relative;width: 100px;z-index: 3;top: -120px;left: 80px;transform: scale3d(1.5, 1.5, 1.5);">
+        </div>
+        <div id="reviewImageMsg" class="animate-on-right" style="display: inline-block; margin-left: 50px;">
+          <img src="Img/review.png" alt="" style="border-radius: 20px; box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.5);width: 350px;position: relative;top: 50px;left: 60px;">
+          <img src="Img/check.gif" alt="" style="position: relative;width: 50px;z-index: 3;top: -100px;left: 100px;transform: scale3d(1.5, 1.5, 1.5);">
+        </div>
       </div>
     </div>
     <div id="membership" class="animate-on-bottom">
@@ -333,19 +349,19 @@
         <div class="membershipSubject">의사와 환자 모두에게 간편한 예약 관리 시스템을 경험해보세요 !</div>
       </div>
     </div>
-  </section>
-  <aside style="margin-right: 50px; margin-top: 10px;" id="aside2" th:insert="~{include/rightAside}"></aside>
+  </div>
+  <aside style="margin-top: 30px;" id="aside2" th:insert="~{include/rightAside}"></aside>
 </div>
-<!--동준 => 광고 집어넣을거면 여기에 추가-->
-<!--<footer id="ad">-->
-<!--  <h1>광고</h1>-->
-<!--</footer>-->
 <footer id="footer" th:replace="~{include/footer}">
 </footer>
 </body>
 </html>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript">
+  let slides = ['#slideOne', '#slideTwo', '#slideThree', '#slideFour'];
+  let slideIndex = 0;
+  let slideInterval;
+
   window.onload = function () {
     $.ajax({
       url: '/asklepios/popularHospital',
@@ -362,59 +378,66 @@
       error: function () {
         alert("error");
       }
-    })
-    let slides = ['#slideOne', '#slideTwo', '#slideThree', '#slideFour'];
-    let slideIndex = 0;
+    });
 
-    // 모든 이미지 opacity 설정 (안보이게) 근데 첫 이미지는 보여야 함
-    document.querySelector("#slideOne").style.opacity = 1;
-    document.querySelector("#slideTwo").style.opacity = 0;
-    document.querySelector("#slideThree").style.opacity = 0;
-    document.querySelector("#slideFour").style.opacity = 0;
+    // 모든 이미지 opacity 초기 설정 (첫 번째만 보이게)
+    slides.forEach((slide, index) => {
+      let slideEl = document.querySelector(slide);
+      slideEl.style.opacity = index === 0 ? "1" : "0";
+    });
 
-    // 점차 이미지 나타나게하기
-    function fadeIn(slideImg) {
-      let opacity = 0;
-      let fadeInInterval = setInterval(() => {
-        opacity += 0.01;
-        slideImg.style.opacity = opacity;
-        if (opacity >= 1) {
-          clearInterval(fadeInInterval);
-        }
-      }, 10); // 0.1초마다 opacity 증가
-    }
+    startSlideShow();
 
-    // 점차 이미지 사라지게하기
-    function fadeOut(slideImg) {
-      let opacity = 1;
-      let fadeOutInterval = setInterval(() => {
-        opacity -= 0.01;
-        slideImg.style.opacity = opacity;
-        if (opacity <= 0) {
-          clearInterval(fadeOutInterval);
-        }
-      }, 10);
-    }
-
-    function showSlide() {
-      let prevSlide = document.querySelector(slides[slideIndex]);
-      if (prevSlide){
-        fadeOut(prevSlide);
+    // 🔹 [탭 이동 감지] 탭을 벗어나면 슬라이드 정지, 다시 돌아오면 재시작
+    document.addEventListener("visibilitychange", function () {
+      if (document.visibilityState === "hidden") {
+        clearInterval(slideInterval); // 탭을 벗어나면 애니메이션 정지
+      } else if (document.visibilityState === "visible") {
+        startSlideShow(); // 다시 돌아오면 애니메이션 재시작
       }
+    });
+  };
 
-      // 계속 돌리기 위해 나머지 구현
-      slideIndex = (slideIndex + 1) % slides.length;
-
-      let nextSlide = document.querySelector(slides[slideIndex]);
-      if (nextSlide){
-        fadeIn(nextSlide);
+  function fadeIn(slideImg) {
+    let opacity = 0;
+    slideImg.style.visibility = "visible";
+    function fade() {
+      opacity += 0.02;
+      slideImg.style.opacity = opacity;
+      if (opacity < 1) {
+        requestAnimationFrame(fade);
       }
-
     }
+    requestAnimationFrame(fade);
+  }
 
-    // 4초 간격으로 슬라이드 전환
-    setInterval(showSlide, 3000); // 2초 페이드 아웃 + 2초 페이드 인
+  function fadeOut(slideImg) {
+    let opacity = 1;
+    function fade() {
+      opacity -= 0.02;
+      slideImg.style.opacity = opacity;
+      if (opacity <= 0) {
+        slideImg.style.visibility = "hidden";
+      } else {
+        requestAnimationFrame(fade);
+      }
+    }
+    requestAnimationFrame(fade);
+  }
 
+  function showSlide() {
+    let currentSlide = document.querySelector(slides[slideIndex]);
+    fadeOut(currentSlide);
+
+    slideIndex = (slideIndex + 1) % slides.length;
+
+    let nextSlide = document.querySelector(slides[slideIndex]);
+    fadeIn(nextSlide);
+  }
+
+  function startSlideShow() {
+    clearInterval(slideInterval); // 기존 인터벌 제거 후 다시 시작
+    slideInterval = setInterval(showSlide, 3000);
   }
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -445,3 +468,4 @@
   });
 
 </script>
+

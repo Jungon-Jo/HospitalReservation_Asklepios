@@ -10,8 +10,10 @@
         border-radius: 20px;
         background: linear-gradient(to bottom, #FFD99B 0%, #20537B 100%);
         color: white;
-        position: relative;
-        top:520px;
+        margin-top: 20px;
+        margin-right: 30px;
+        /*position: relative;*/
+        /*top:520px;*/
         display: flex;
         float: right;
         text-align: center;
@@ -20,18 +22,18 @@
     }
     .chatContainer {
         position: fixed;
-        bottom: 180px;
-        right: 25px;
+        bottom: 20px;  /* 화면 하단에서 20px 위 */
+        right: 20px;   /* 화면 오른쪽에서 20px 왼쪽 */
         width: 600px;
-        height: 700px;
+        height: 590px;
         background: white;
         border-radius: 10px;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
         display: none;
         flex-direction: column;
-        overflow: hidden;
-        opacity: 0; /* 초기에는 투명하게 */
-        transform: translateY(20px); /* 아래에서 올라오는 효과 */
+        overflow: visible;
+        opacity: 0;
+        transform: translateY(20px);
         transition: opacity 0.4s ease, transform 0.4s ease;
     }
     .chatContainer.active {
@@ -57,7 +59,7 @@
     }
     .chatBody {
         padding: 10px;
-        height: 540px;
+        height: 430px;
         overflow-y: auto;
         display: flex;
         flex-direction: column;
@@ -115,9 +117,11 @@
         align-self: flex-start;
     }
     .chatIcon {
-        position: fixed;
-        bottom: 200px;
-        right: 25px;
+        /*position: fixed;*/
+        /*bottom: 200px;*/
+        /*right: 25px;*/
+        margin-top: 20px;
+        margin-left: 30px;
         background: #3b82f6;
         color: white;
         border-radius: 50%;
@@ -183,7 +187,7 @@
         background: #ff1a1a;
     }
 </style>
-<aside class="quickMenu" style="position: sticky; top: 30px;">
+<aside class="quickMenu" style="position: sticky; top: 10px;">
     <div class="bg-blue-500 border border-gray-200 rounded-lg shadow dark:bg-green-800 dark:border-gray-700">
         <div class="profileImage">
             <a href="myPage">
@@ -249,29 +253,28 @@
         </div>
     </div>
     <div sec:authorize="isAnonymous()">
-        <div style="position: sticky; top: 0px; cursor: pointer;" onclick="animation()">
-            <div class="toTop" style="top:760px;">
-                <i class="fa-solid fa-angle-up" style="position: relative; top: 8px;"></i>
-                <span style="position: relative; bottom: 8px;">TOP</span>
+        <div style="cursor: pointer;" onclick="animation()">
+            <div class="toTop">
+                <i class="fa-solid fa-angle-up"></i>
+                <span>TOP</span>
                 <!--            <div style="color: #3b82f6;font-size: 40px;font-weight: bold;position: relative;top: 60px;">TOP</div>-->
             </div>
         </div>
     </div>
     <div sec:authorize="isAuthenticated()">
-        <div style="position: sticky; top: 0px; cursor: pointer;" onclick="animation()">
+        <div style="cursor: pointer;" onclick="animation()">
             <div class="toTop">
-                <i class="fa-solid fa-angle-up" style="position: relative; top: 8px;"></i>
-                <span style="position: relative; bottom: 8px;">TOP</span>
+                <i class="fa-solid fa-angle-up"></i>
+                <span>TOP</span>
                 <!--            <div style="color: #3b82f6;font-size: 40px;font-weight: bold;position: relative;top: 60px;">TOP</div>-->
             </div>
         </div>
     </div>
+    <!-- 메시지 아이콘 -->
+    <div class="chatIcon" id="chatIcon" onclick="toggleChat()">
+        <img src="Img/chatbot.png" class="chatIconSmall" style="margin: 0px; width: 90px; height: 90px;">
+    </div>
 </aside>
-<!-- 메시지 아이콘 -->
-<div class="chatIcon" id="chatIcon" onclick="toggleChat()">
-    <img src="Img/chatbot.png" class="chatIconSmall" style="margin: 0px; width: 90px; height: 90px;">
-</div>
-
 <!-- 채팅 박스 -->
 <div class="chatContainer" id="chatContainer">
     <div class="chatHeader">
@@ -397,6 +400,12 @@
             $("#chatBody").hide();
             $("#messageInput").hide();
             $("#exitChat").hide(); // Exit 버튼 숨기기
+            $("#userMsgArea").remove();
+            $("#userMsgContent").remove();
+            $("#userImg").remove();
+            $("#botIcon").remove();
+            $("#botMsgWrapper").remove();
+            $("#botMsgContent").remove();
 
             // ✅ 챗봇 선택 버튼 다시 표시
             $("#selection").show();
@@ -418,20 +427,23 @@
             }
 
             // ✅ 사용자 메시지를 오른쪽에 정렬하여 추가
-            let userMsgWrapper = document.createElement("div");
-            userMsgWrapper.classList.add("messageWrapper", "userMessageWrapper"); // ✅ 사용자 메시지 오른쪽 정렬
-
-            let userMsgElement = document.createElement("div");
-            userMsgElement.classList.add("message", "userMessage");
-            userMsgElement.innerText = userMessage;
-
             let userIcon = document.createElement("img");
+            userIcon.setAttribute("id", "userImg");
             userIcon.src = "Img/defaultGuest.png";
             userIcon.classList.add("chatIconSmall");
 
-            userMsgWrapper.appendChild(userIcon);
+            let userMsgWrapper = document.createElement("div");
+            userMsgWrapper.setAttribute("id", "userMsgArea");
+            userMsgWrapper.classList.add("messageWrapper", "userMessageWrapper"); // ✅ 사용자 메시지 오른쪽 정렬
+
+            let userMsgElement = document.createElement("div");
+            userMsgElement.setAttribute("id", "userMsgContent");
+            userMsgElement.classList.add("message", "userMessage");
+            userMsgElement.innerText = userMessage;
+
             userMsgWrapper.appendChild(userMsgElement);
             chatBody.appendChild(userMsgWrapper);
+            userMsgWrapper.appendChild(userIcon);
 
             $("#chatInput").text("");
 
@@ -446,13 +458,16 @@
                 success: function (response) {
                     console.log("✅ 서버 응답:", response);
                     let botMsgWrapper = document.createElement("div");
+                    botMsgWrapper.setAttribute("id", "botMsgWrapper");
                     botMsgWrapper.classList.add("messageWrapper", "botMessageWrapper");
 
                     let botIcon = document.createElement("img");
+                    botIcon.setAttribute("id", "botIcon");
                     botIcon.src = "Img/chatbot.png";
                     botIcon.classList.add("chatIconSmall");
 
                     let botMsgElement = document.createElement("div");
+                    botMsgElement.setAttribute("id", "botMsgContent");
                     botMsgElement.classList.add("message", "botMessage");
                     botMsgElement.innerText = response
 

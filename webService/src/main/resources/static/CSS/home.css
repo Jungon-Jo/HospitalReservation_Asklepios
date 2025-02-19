@@ -60,28 +60,36 @@ body{
     overflow-x: hidden;
 }
 
-
 .homeContainer{
     display: flex;
     width: 1920px;
-    height: 1200px;
+    height: auto;
 }
 
 #aside1 {
     width: 300px;
-    margin-top: 10px;
+    height: auto;
+    margin-top: 30px;
 }
-section{
-    margin-left: 30px;
-    width: 1200px;
-    height: 1500px;
+#sectionHome{
+    padding-left: 30px;
+    padding-right: 30px;
+    width: 1620px;
+    height: auto;
     margin-top: 30px;
     /*background-color: black;*/
 }
+section{
+    margin-left: 30px;
+    width: 1260px;
+    height: auto;
+    margin-top: 30px;
+    margin-right: 30px;
+}
 #aside2 {
     width: 300px;
-    margin-left: 50px;
-    margin-top: 10px;
+    height: auto;
+    margin-top: 30px;
 }
 #ad{
     width: 100%;
@@ -93,7 +101,7 @@ section{
 #footer{
     width: 100%;
     display: inline-block;
-    height: 300px;
+    height: 200px;
     margin-top: 100px;
 }
 body, ul, li {
@@ -213,18 +221,18 @@ a {
     border: 1px solid;
 }
 .searchInput {
-    width: 700px;
+    width: 850px;
     display: flex;
 }
 #searchHospital{
-    width: 700px;
+    width: 900px;
     font-family: 'Pretendard-Regular','sans-serif';
     display: flex;
     text-align: center;
     margin-left: 85px;
 }
 #search-input{
-    width: 530px;
+    width: 800px;
     height: 80px;
     border: 1px solid #3B82F6;
     border-radius: 10px;
