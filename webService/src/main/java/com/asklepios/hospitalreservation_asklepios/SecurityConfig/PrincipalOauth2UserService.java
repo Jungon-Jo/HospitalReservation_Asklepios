@@ -7,6 +7,7 @@ import com.asklepios.hospitalreservation_asklepios.VO.IM_NaverUserInfo;
 import com.asklepios.hospitalreservation_asklepios.VO.UserVO;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -21,7 +22,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
     private final IF_UserService userService;
-
+    private final PasswordEncoder passwordEncoder;
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 //        System.out.println("getClientRegistration: "+userRequest.getClientRegistration().getRegistrationId());
@@ -42,7 +43,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         String username=oAuth2UserInfo.getName();
         String userId=provider.charAt(0)+"_"+email.split("@")[0];
 //        String picture=oAuth2User.getAttribute("picture");
-        String password="Oauth2";
+        String password="OAuth2";
         String role="scClient";
         String phoneNumber=oAuth2UserInfo.getPhoneNumber();
         Optional<UserVO>user= Optional.ofNullable(userService.printOneInfo(userId));
@@ -52,7 +53,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
                     .user_id(userId)
                     .user_email(email)
                     .user_name(username)
-                    .user_password(password)
+                    .user_password(passwordEncoder.encode(password))
                     .user_authority(role)
                     .user_tel(phoneNumber)
 //                    .user_image(picture)
@@ -64,6 +65,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         UserVO loginUser=userService.printOneInfo(userId);
 //        System.out.println(loginUser.toString());
         loginUser.setUser_name(userId);
+        loginUser.setUser_authority("ROLE_"+role);
         return new PrincipalDetails(loginUser,oAuth2User.getAttributes());
 
 //           return new PrincipalDetails(newUser,oAuth2User.getAttributes());

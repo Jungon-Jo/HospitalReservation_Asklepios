@@ -279,12 +279,14 @@
     let writerId=document.getElementsByName("board_user_id")[0].value;
     let deleteButton=document.getElementById("delete");
     let boardSequence=document.getElementsByName("board_sequence")[0].value;
+    console.log(boardSequence)
     console.log(userId);
     console.log(writerId);
     if(userId===writerId||
         userAuthority==="admin"){
       deleteButton.innerHTML=`<a href="deleteboard?board_sequence=${boardSequence}">글 삭제</a>`;
     }
-
   }
+
+
 </script>
