@@ -85,6 +85,36 @@
         <tr class="small">
           <td class="td1">
             <div class="label">
+              태그
+            </div>
+          </td>
+          <td>
+            <div>
+              <input type="text" id="write_tag" placeholder="" style="width: 500px;"
+                     class="fillAuto bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 focus:ring-1 focus:outline-none">
+            </div>
+          </td>
+          <td style="justify-items: end;">
+            <div>
+              <input type="button" value="추가하기" style="width: 300px;"
+                     class="mx-px place-items-center bg-blue-500 w-64 h-20 rounded-lg text-white text-5xl font-semibold hover:bg-blue-600"
+                     onclick=addTag();>
+            </div>
+          </td>
+        </tr>
+        <tr class="small">
+          <td class="td1">
+            <div class="label"></div>
+          </td>
+          <td colspan="2">
+            <div id="tag_list">
+              <label id="tag_notice" for="tag_list" style="width: 900px; font-size: 30px;">태그는 최대 5개까지 입력가능합니다.</label>
+            </div>
+          </td>
+        </tr>
+        <tr class="small">
+          <td class="td1">
+            <div class="label">
               첨부파일
             </div>
           </td>

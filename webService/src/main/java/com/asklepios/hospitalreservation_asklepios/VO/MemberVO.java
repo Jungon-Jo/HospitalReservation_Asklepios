@@ -1,9 +1,9 @@
 package com.asklepios.hospitalreservation_asklepios.VO;
 
-
 import lombok.Data;
 
 @Data
+
 public class MemberVO {
 
   private String user_id;

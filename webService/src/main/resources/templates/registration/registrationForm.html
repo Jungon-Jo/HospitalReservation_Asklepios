@@ -17,10 +17,10 @@
 </head>
 <body>
 <div th:replace="~{include/header}"></div>
-<div style="display:flex; width: 1920px; height: auto; margin-bottom: 80px;">
+<div style="display:flex; width: 1920px; height: auto; margin-bottom: 30px">
   <div style="display: inline-block;" th:replace="~{include/leftAside/reservationAside}"></div>
   <div class="container1">
-    <form action="register" enctype="multipart/form-data" method="post" onsubmit="return validateForm()">
+    <form action="register" enctype="multipart/form-data" method="post" onsubmit="return validateForm()" style="height: auto;">
       <div class="title">병원등록</div>
       <table>
         <tr class="small">
