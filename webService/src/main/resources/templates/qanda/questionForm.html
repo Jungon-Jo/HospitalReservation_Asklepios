@@ -13,14 +13,25 @@
   <link rel="stylesheet" href="CSS/questionForm.css"/>
   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+  <style>
+    .asideQuestion{
+      background-color:#3b82f6;
+      color:white;
+    }
+  </style>
 </head>
+<script th:inline="javascript">
+  document.getElementById("btn_asideList").classList.remove("asideQuestion");
+    document.getElementById("btn_asideAnswer").classList.remove("asideQuestion");
+   document.getElementById("btn_asideQuestion").classList.add("asideQuestion");
+</script>
 <body>
 <div th:replace="~{include/header}"></div>
 <div style="display:flex; width: 1920px; height: 1200px; margin-bottom: 80px;">
   <div style="display: inline-block;" th:replace="~{include/leftAside/qandaAside}"></div>
   <div class="container1">
     <!--    onsubmit="return validateForm()"-->
-    <form action="qnaSubmit" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+    <form action="qnaSubmit">
       <div class="title">질문하기</div>
       <table>
         <tr class="small">
@@ -138,7 +149,7 @@
           <td colspan="3">
             <div class="flex justify-center">
               <input type="hidden" name="user_id" th:value="${userId}">
-              <input type="submit" value="등록하기"
+              <input type="button" value="등록하기" onclick="request_ai()"
                      class="mx-px mt-10 place-items-center bg-blue-500 w-64 h-20 rounded-lg text-white text-5xl font-semibold hover:bg-blue-600">
             </div>
           </td>

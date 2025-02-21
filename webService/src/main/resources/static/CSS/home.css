@@ -41,7 +41,7 @@ footer {
     font-family: 'Pretendard-Regular', 'sans-serif';
 }
 #loginSession{
-    width: 450px;
+    width: 460px;
     font-size: 35px;
     color: #3B82F6;
     margin-top: 20px;
@@ -60,36 +60,28 @@ body{
     overflow-x: hidden;
 }
 
+
 .homeContainer{
     display: flex;
     width: 1920px;
-    height: auto;
+    height: 1200px;
 }
 
 #aside1 {
     width: 300px;
-    height: auto;
-    margin-top: 30px;
-}
-#sectionHome{
-    padding-left: 30px;
-    padding-right: 30px;
-    width: 1620px;
-    height: auto;
-    margin-top: 30px;
-    /*background-color: black;*/
+    margin-top: 10px;
 }
 section{
     margin-left: 30px;
-    width: 1260px;
-    height: auto;
+    width: 1200px;
+    height: 1500px;
     margin-top: 30px;
-    margin-right: 30px;
+    /*background-color: black;*/
 }
 #aside2 {
     width: 300px;
-    height: auto;
-    margin-top: 30px;
+    margin-left: 50px;
+    margin-top: 10px;
 }
 #ad{
     width: 100%;
@@ -101,7 +93,7 @@ section{
 #footer{
     width: 100%;
     display: inline-block;
-    height: 200px;
+    height: 300px;
     margin-top: 100px;
 }
 body, ul, li {
@@ -221,18 +213,18 @@ a {
     border: 1px solid;
 }
 .searchInput {
-    width: 850px;
+    width: 700px;
     display: flex;
 }
 #searchHospital{
-    width: 900px;
+    width: 700px;
     font-family: 'Pretendard-Regular','sans-serif';
     display: flex;
     text-align: center;
     margin-left: 85px;
 }
 #search-input{
-    width: 800px;
+    width: 530px;
     height: 80px;
     border: 1px solid #3B82F6;
     border-radius: 10px;
@@ -259,4 +251,25 @@ a {
     font-size: 30px;
     text-align: center;
     margin-bottom: 20px;
+}
+
+/*알림 벨*/
+.bell{
+   display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: tomato;
+    font-size: 10px;
+    font-weight: 600;
+    color: white;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    }
+.fa-bell{
+position:relative;
+top:2px;
 }

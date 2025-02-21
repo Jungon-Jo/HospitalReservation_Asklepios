@@ -1,20 +1,27 @@
 package com.asklepios.hospitalreservation_asklepios.Controller;
 
 import com.asklepios.hospitalreservation_asklepios.Service.IF_UserService;
+import com.asklepios.hospitalreservation_asklepios.Service.IM_UserService;
 import com.asklepios.hospitalreservation_asklepios.Util.Profile_ImageUtil;
 import com.asklepios.hospitalreservation_asklepios.VO.DoctorVO;
-import com.asklepios.hospitalreservation_asklepios.VO.MemberVO;
 import com.asklepios.hospitalreservation_asklepios.VO.UserVO;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.activation.DataSource;
+
+import jakarta.activation.FileDataSource;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import java.io.IOException;
-import java.util.UUID;
 
+import java.io.File;
+import java.util.UUID;
 
 @Controller
 public class JoinController {
@@ -24,6 +31,8 @@ public class JoinController {
 
     @Autowired
     Profile_ImageUtil profileImageUtil;
+
+    public UserVO rollback_vo;
 
     @GetMapping("/agreement")
     public String agreement(Model model) throws Exception {
@@ -53,12 +62,15 @@ public class JoinController {
         userVO.setUser_image(newFileName);
         String doctor_id = userVO.getUser_id();
         model.addAttribute("user_id", doctor_id);
-        userService.addUserCommonInfo(userVO);
 //        System.out.println(userVO.getUser_authority());
 //        System.out.println(userVO.toString());
         if(userVO.getUser_authority().equals("doctor")) {
+            System.out.println("의사");
+            rollback_vo = userVO;
             return "userJoin/insertDoctorUserInfo";
         } else {
+            System.out.println("일반");
+            userService.addUserCommonInfo(userVO);
             return "userJoin/successJoin";
         }
 
@@ -67,35 +79,24 @@ public class JoinController {
     @PostMapping("/doctorinfo")
     public String doctorinfo(@ModelAttribute DoctorVO doctorVO) throws Exception {
         doctorVO.setUser_doctor_code(UUID.randomUUID().toString());
-        userService.addUserDoctorInfo(doctorVO);
+        String a = "normal"; //뒤로가기 없이 데이터 저장
+        userService.addUserDoctorInfo(doctorVO,rollback_vo,a);
         return "userJoin/successJoin";
     }
 
-    @GetMapping("/socialInfo")
-    public String socialInfo(Model model, HttpServletResponse response, HttpServletRequest request) throws IOException {
-        model.addAttribute("user", userService.findMember());
-        response.setContentType("text/html; charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        response.getWriter().println("<script> alert('추가 정보 작성을 위해 해당 페이지로 이동합니다.');</script>");
-//        response.getWriter().close();
-        return "userJoin/insertSocialCommonInfo";
-    }
-    @PostMapping("/saveSocialInfo")
-    public String saveSocialInfo(@ModelAttribute("user") UserVO user
-            ,@RequestParam(value = "file", required = false) MultipartFile file ) throws Exception {
-        String newFileName = profileImageUtil.storeFile(file);
-        MemberVO member = userService.findMember();
-        user.setUser_authority("ROLE_scClient");
-        user.setUser_id(member.getUser_id());
-        user.setUser_password("Oauth2");
-        user.setUser_image(newFileName);
-        System.out.println(user.toString());
-        userService.modifySocialUserCommonInfo(user);
-        return "redirect:/home";
-    }
-    @GetMapping("/showAgreement")
-    public String showAgreement(){
-        return "userJoin/socialAgreement";
+    //뒤로기기 실행 시 디비 롤백
+    @GetMapping("/join")
+    public String rollback_join(String rollback){
+        System.out.println("롤벡 들어옴");
+        try {
+            if (rollback.equals("back")) {
+                DoctorVO vo = new DoctorVO();
+                userService.addUserDoctorInfo(vo, rollback_vo, rollback);
+                System.out.println("성공!!");
+            }
+        }catch (RuntimeException e){
+            System.out.println("오류발생:"+e.getMessage());
+        }
+        return "home";
     }
 }

@@ -1,3 +1,4 @@
+//수정 -혜린
 function recommendMedical() {
     let userMessage = document.getElementById("question_content").value.trim(); // 공백 제외한 사용자 입력값
 
@@ -99,12 +100,13 @@ function updateHiddenInput() {
 //     document.querySelector("#tag_notice").style.display = 'none';
 // }
 
+
 function validateForm(){
     let title = document.querySelector("#question_title").value;
     let content = document.querySelector("#question_content").value;
     let medical = document.querySelector("#question_medical").value;
     let formFlag = false;
-
+    
     if(title === ""){
         Swal.fire('필수항목 미입력', '제목을 입력해주세요.','error');
         return formFlag;
@@ -125,3 +127,57 @@ function validateForm(){
         return formFlag;
     }
 }
+
+function requestToServer(){
+    let result = validateForm();
+    if(result){
+        request_ai();
+    }
+    }
+
+
+function request_ai(){
+    let formData = new FormData();
+    let title =document.getElementById("question_title").value;
+    let content =document.getElementById("question_content").value;
+    let sub =document.getElementById("question_medical").value;
+    let file =document.getElementById("upload_file").files[0];
+    let tag = document.querySelector("input[name='tag']").value;
+
+    formData.append('file',file);
+    formData.append('sub',sub);
+    formData.append('content',content);
+    formData.append('title',title);
+    formData.append('tag',tag)
+
+    $.ajax({
+         url:'/asklepios/qnaSubmit',
+         type:'POST',
+         data:formData,
+         contentType:false,
+         processData:false,
+         success:function(response){
+         console.log('success',response);
+            let id = response;
+            $.ajax({
+                url:'http://192.168.0.43:8000/ai_request',
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({'question': content,'question_id':id}),
+                dataType: "json",
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function() {
+                    console.log('fail');
+                }
+            })
+         },
+         error:function(error){
+         console.log('error');
+         }
+    });
+}
+
+
+

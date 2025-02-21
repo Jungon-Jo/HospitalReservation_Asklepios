@@ -52,7 +52,7 @@
 
     <!--큐엔에이 디테일 보기에서 의사관련 정보만 가져오기-->
     <select id="show_detail_getDoctorInfo"  resultType="com.asklepios.hospitalreservation_asklepios.VO.QuestionlistVO">
-        select a.content,a.`date`,u.user_name,a.hospital_name as sub,a.user_doctor_medical as tag from answer a left join users u on a.user_doctor_id =u.user_id where a.question_id =#{question_id};
+        select a.answer_id as id,a.content,a.`date`,u.user_name,a.hospital_name as sub,a.user_doctor_medical as tag from answer a left join users u on a.user_doctor_id =u.user_id where a.question_id =#{question_id};
     </select>
 
 

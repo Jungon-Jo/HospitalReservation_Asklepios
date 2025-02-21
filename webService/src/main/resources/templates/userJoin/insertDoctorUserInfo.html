@@ -81,6 +81,21 @@
 </style>
 <script th:inline="javascript">
     window.onload = function() {
+            // 페이지 로드 시 히스토리에 더미 상태 추가 (뒤로 가기 이벤트 활성화)
+        history.pushState(null, "", location.href); // 페이지 로드 후 히스토리 조작
+
+         window.addEventListener("popstate", function () {
+            const confirmLeave = confirm("정보가 저장되지 않을 수 있습니다.정말 이 페이지에서 나가시겠습니까?");
+            if (!confirmLeave) {
+                history.replaceState(null, "", location.href);
+                history.pushState(null, "", location.href); // 다시 히스토리를 추가해서 뒤로 가기 방지
+            } else {
+                console.log("확인!");
+                location.href='/asklepios/join?rollback=back';
+            }
+        });
+
+
         const modalOpenButton = document.getElementById('modalOpenButton');
         const modalCloseButton = document.getElementById('modalCloseButton');
         const modal = document.getElementById('modalContainer');
@@ -146,22 +161,15 @@
     }
 
     function checkInfo(submit) {
-        let doctorMedical = false;
-        let doctorCareer = false;
-        let doctorGraduate = false;
-        if(document.getElementById('user_doctor_medical').value !== "") {
-            doctorMedical = true;
-        }
-        if(document.getElementById('user_doctor_career').innerText !== "") {
-            doctorCareer = true;
-        }
-        if(document.getElementById('user_doctor_graduate').innerText !== "") {
-            doctorGraduate = true;
-        }
-        if(doctorMedical === doctorCareer === doctorGraduate === true) {
+        let doctorMedical = document.getElementById('user_doctor_medical').value;
+        let doctorCareer = document.getElementById('user_doctor_career').value;
+        let doctorGraduate = document.getElementById('user_doctor_graduate').value;
+        let user_doctor_hospital_code = document.getElementById('user_doctor_hospital_code').value;
+        let result = false;
+        if(doctorGraduate &&doctorCareer &&doctorMedical) {
             return true;
         } else {
-            alert("가입 정보가 정확하게 입력되지 않았습니다. 다시 확인해주세요.")
+            alert("가입 정보가 정확하게 입력되지 않았습니다. 다시 확인해주세요.");
             return false;
         }
     }

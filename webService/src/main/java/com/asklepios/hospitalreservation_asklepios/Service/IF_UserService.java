@@ -14,7 +14,7 @@ public interface IF_UserService {
     public void addUserCommonInfo(UserVO userVO);
     public int duplicateID(String user_id);
     public int duplicateRegisterNumber(String user_register_number);
-    public void addUserDoctorInfo(DoctorVO doctorVO);
+    public void addUserDoctorInfo(DoctorVO doctorVO,UserVO userVO,String check);
     public String checkedPassword(String user_id);
     public UserVO printOneInfo(String user_id);
     public void modifyUserCommonInfo(UserVO userVO);
@@ -25,5 +25,4 @@ public interface IF_UserService {
     public int countTotalReservation(String userId);
     public MemberVO findUser(String user_id);
     public MemberVO findMember();
-    public void modifySocialUserCommonInfo(UserVO userVO);
 }

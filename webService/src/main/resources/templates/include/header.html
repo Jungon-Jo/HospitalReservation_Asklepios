@@ -5,7 +5,7 @@
   <header>
     <div id="header">
       <div>
-        <a href="home" style="margin-top: 5px; margin-right: 20px;"><span class="text-blue-500 font-bold" style="font-size: 60px;">ASKLEPIOS</span></a>
+        <a href="home" style="margin-top: 5px; margin-right: 25px;"><span class="text-blue-500 font-bold" style="font-size: 60px;">ASKLEPIOS</span></a>
       </div>
       <div id="searchHospital">
         <form action="search?keyword" method="get">
@@ -15,7 +15,15 @@
           </div>
         </form>
       </div>
-      <div id="loginSession">
+
+
+      <div id="loginSession" class="flex space-x-4">
+        <!--<a th:href="@{/asklepios/qandaList}" class="relative">
+          <i class="fa-solid fa-bell text-blue-500 text-3xl"></i>
+          <span class="bell absolute -top-1 -right-2 flex justify-center items-center w-5 h-5 rounded-full bg-red-500 text-xs font-bold text-white">
+      3
+    </span>
+        </a>-->
         <div sec:authorize="isAnonymous()">
           <span style="padding-right: 20px;"><a href="login">로그인<i class="fa-solid fa-right-to-bracket"></i></a></span>
           <span><a href="/asklepios/userjoin">회원가입<i class="fa-solid fa-user-plus"></i></a></span>
@@ -25,7 +33,7 @@
             <button type="submit">로그아웃&nbsp;<i class="fa-solid fa-arrow-right-from-bracket"></i></button>
           </form>
           <span><a href="myPage">마이페이지&nbsp;<i class="fa-solid fa-user"></i></a></span>
-        <div>
+        </div>
       </div>
     </div>
   </header>
@@ -60,9 +68,9 @@
 <!--          </ul>-->
       </li>
       <li>
-        <a href="#">게시판</a>
+        <a href="bboard_all">게시판</a>
         <ul>
-<!--          <li><a href="bboard_all">모든 글</a></li>-->
+          <li><a href="bboard_all">모든 글</a></li>
           <li><a href="bboard_health">오늘의 건강</a></li>
           <li><a href="bboard_campaign">캠페인</a></li>
           <li><a href="bboard_med">의료정보</a></li>
@@ -70,7 +78,7 @@
         </ul>
       </li>
       <li>
-        <a href="qanda">QnA</a>
+        <a href="qandaList">QnA</a>
       </li>
     </ul>
   </nav>

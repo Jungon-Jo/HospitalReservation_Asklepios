@@ -40,4 +40,8 @@ public interface IF_QandAMapper {
     //질문 제목 가져옴
     @Select("SELECT title FROM question where id=#{questionId}")
     String getSubjuct(int questionId);
+
+    //ai 답변 가져옴
+    @Select("SELECT CONTENT as content,DATE as date,AI_SUB as tag,AI_NAME as sub FROM AI_ANSWER WHERE QUESTION_ID =#{questionId}")
+    QuestionlistVO getAIAnswer(int questionId);
 }
