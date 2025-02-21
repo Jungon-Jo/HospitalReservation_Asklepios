@@ -68,7 +68,7 @@
     padding-left: 10px;
     background-color: #3b82f6;
     color: white;
-    margin-top: 30px;
+    margin-top: 10px;
     cursor: pointer;
   }
   table input[type="submit"]:active {
@@ -91,8 +91,21 @@
     cursor: pointer;
   }
   #delete{
-    color: #ff1a1a;
+    margin-top: 30px;
+    width: 160px;
+    height: 60px;
+    background: #d95050;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+    display: none;
   }
+  #delButton{
+    margin-top: 10px;
+    text-align: center;
+    cursor: pointer;
+  }
+
 </style>
 <body>
 <div th:replace="~{include/header}"></div>
@@ -159,7 +172,7 @@
           </tr>
           <tr>
             <td><input type="submit" value="글 수정" ></td>
-            <td><span id="delete"></span></td>
+            <td><div id="delete"></div></td>
             <!--                    <td th:if="likeVO.liked==true"><button onclick="board_like()"><i class="fa-solid fa-heart"></i></button></td>-->
             <!--                    <td th:if="likeVO.liked==false"><button onclick="board_like()"><i class="fa-regular fa-heart"></i></button></td>-->
           </tr>
@@ -278,15 +291,31 @@
     let userAuthority=document.getElementsByName("user_authority")[0].value;
     let writerId=document.getElementsByName("board_user_id")[0].value;
     let deleteButton=document.getElementById("delete");
-    let boardSequence=document.getElementsByName("board_sequence")[0].value;
-    console.log(boardSequence)
+    // console.log(boardSequence)
     console.log(userId);
     console.log(writerId);
     if(userId===writerId||
         userAuthority==="admin"){
-      deleteButton.innerHTML=`<a href="deleteboard?board_sequence=${boardSequence}">글 삭제</a>`;
+      deleteButton.style.display="inline-block";
+      // deleteButton.innerHTML=`<a href="deleteboard?board_sequence=${boardSequence}" onclick="return confirmDelete(event)">글 삭제</a>`;
+      deleteButton.innerHTML=`<input id="delButton" type="button" onclick="deleteBoard()" value="글 삭제">`;
     }
   }
+
+  function deleteBoard(){
+    let boardSequence=document.getElementsByName("board_sequence")[0].value;
+    let url=`deleteboard?board_sequence=${boardSequence}`;
+    //confirm창
+    let isConfirmed=confirm("글을 삭제하시겠습니까?");
+    if(isConfirmed){
+
+      window.location.href=url;
+    }else{
+      return false;
+    }
+  }
+
+
 
 
 </script>

@@ -34,22 +34,17 @@ public class MyPageController {
     @GetMapping("/myPage")
     public String myPage(Model model) {
         MemberVO member = userService.findMember();
-        System.out.println("0");
-        System.out.println(member.toString());
         String id = member.getUser_id();
-        System.out.println(id);
         UserVO user=userService.printOneInfo(id);
-        System.out.println("0.1");
         if (user == null) {
             System.out.println("1");
             return "redirect:/login";
-        } else if(user.getUser_authority().equals("client")) {
-            System.out.println("2");
+        } else if(user.getUser_authority().equals("client")
+                ||user.getUser_authority().equals("scClient")) {
             user.divideEngName();
             user.divideAddr();
             user.divideEmail();
             user.divideTel();
-            System.out.println("3");
             String filePath = "profile_image/" + user.getUser_image();
             // Reservation 불러오기
             List<ReservationStatusVO> reservationStatusVOList = reservationService.findAllReservation(user.getUser_id());
@@ -69,9 +64,7 @@ public class MyPageController {
             user.divideTel();
             String filePath = "profile_image/" + user.getUser_image();
             // DoctorVO 불러오기
-            System.out.println(user.getUser_id());
-            DoctorVO doctorVO = userService.printOneDoctorInfo(user.getUser_id());
-            System.out.println(doctorVO);
+            DoctorVO doctorVO = userService.printOneDoctorInfo(id);
             // Reservation 불러오기
 //            List<ReservationStatusVO> reservationStatusVOList = reservationService.findAllReservation(user_id);
 //            List<ReservationStatusVO> reservationDoctorStatusVOList = reservationService.findAllDoctorReservation(user_id);

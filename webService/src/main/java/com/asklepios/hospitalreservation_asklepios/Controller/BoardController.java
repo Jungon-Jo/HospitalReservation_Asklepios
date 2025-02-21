@@ -50,15 +50,19 @@ public class BoardController {
   }
 
   @GetMapping("/bboard_health")
-  public String board_health(Model model, @ModelAttribute PageVO pagevo) throws Exception {
+  public String board_health(Model model, @ModelAttribute PageVO pagevo,
+                             @RequestParam(value = "orderNumber", required = false) Integer orderNumber) throws Exception {
     MemberVO user=userService.findMember();
     if(pagevo.getPage()==null){
       pagevo.setPage(1);
     }
+    if(orderNumber==null){
+      orderNumber=1;
+    }
     String category="오늘의 건강";
 //    System.out.println(pagevo.getSearchKeyword());
     pagevo.setTotalCount(boardService.boardCount(category));
-    List<BoardVO> boardlist=boardService.boardList(pagevo,category);
+    List<BoardVO> boardlist=boardService.boardList(pagevo,category,orderNumber);
 //        System.out.println(pagevo.getPage());
 //        System.out.println(pagevo.getStartNo()+"/"+pagevo.getEndNo());
 //        System.out.println(pagevo.isNext());
@@ -66,47 +70,65 @@ public class BoardController {
     model.addAttribute("user", user);
     model.addAttribute("boardlist",boardlist);
     model.addAttribute("category", category);
+    model.addAttribute("orderNumber", orderNumber);
     return "board/main";
   }
   @GetMapping("/bboard_campaign")
-  public String board_cam(Model model, @ModelAttribute PageVO pageVO ) throws Exception {
+  public String board_cam(Model model, @ModelAttribute PageVO pageVO,
+                          @RequestParam(value = "orderNumber", required = false) Integer orderNumber) throws Exception {
     MemberVO user=userService.findMember();
     if(pageVO.getPage()==null){
       pageVO.setPage(1);
     }
+    if(orderNumber==null){
+      orderNumber=1;
+    }
     String category="캠페인";
+
     pageVO.setTotalCount(boardService.boardCount(category));
-    List<BoardVO> boardlist=boardService.boardList(pageVO,category);
+    List<BoardVO> boardlist=boardService.boardList(pageVO,category,orderNumber);
     model.addAttribute("user", user);
     model.addAttribute("boardlist",boardlist);
     model.addAttribute("category", category);
+    model.addAttribute("orderNumber", orderNumber);
     return "board/main";
   }
   @GetMapping("/bboard_med")
-  public String board_med(Model model , @ModelAttribute PageVO pagevo) throws Exception {
+  public String board_med(Model model , @ModelAttribute PageVO pagevo,
+                          @RequestParam(value = "orderNumber", required = false) Integer orderNumber) throws Exception {
     MemberVO user=userService.findMember();
     if(pagevo.getPage()==null){
       pagevo.setPage(1);
     }
+    if(orderNumber==null){
+      orderNumber=1;
+    }
     String category="의료정보";
+
     pagevo.setTotalCount(boardService.boardCount(category));
-    List<BoardVO> boardlist=boardService.boardList(pagevo,category);
+    List<BoardVO> boardlist=boardService.boardList(pagevo,category,orderNumber);
     model.addAttribute("user", user);
     model.addAttribute("boardlist",boardlist);
     model.addAttribute("category", category);
+    model.addAttribute("orderNumber", orderNumber);
     return "board/main";
   }
   @GetMapping("/bboard_free")
-  public String board_free(Model model , @ModelAttribute PageVO pagevo) throws Exception {
+  public String board_free(Model model , @ModelAttribute PageVO pagevo,
+                           @RequestParam(value = "orderNumber", required = false) Integer orderNumber) throws Exception {
     if(pagevo.getPage()==null){
       pagevo.setPage(1);
     }
+    if(orderNumber==null){
+      orderNumber=1;
+    }
     String category="자유게시판";
     pagevo.setTotalCount(boardService.boardCount(category));
-    List<BoardVO> boardlist=boardService.boardList(pagevo,category);
+    List<BoardVO> boardlist=boardService.boardList(pagevo,category,orderNumber);
     model.addAttribute("user", userService.findMember());
     model.addAttribute("boardlist",boardlist);
     model.addAttribute("category", category);
+    model.addAttribute("orderNumber", orderNumber);
     return "board/main";
   }
   @GetMapping("/write")
@@ -131,7 +153,19 @@ public class BoardController {
     boardVO.setBoard_binary(boardFilename);
     System.out.println(boardVO.getBoard_binary());
     boardService.addBoard(boardVO);
-    return "redirect:/bboard_all";
+
+    System.out.println(boardVO.getBoard_category());
+    if(boardVO.getBoard_category().equals("오늘의 건강")){
+      return "redirect:bboard_health";
+    }else if(boardVO.getBoard_category().equals("캠페인")){
+      return "redirect:bboard_campaign";
+    }else if(boardVO.getBoard_category().equals("의료기기")){
+      return "redirect:bboard_med";
+    }else if(boardVO.getBoard_category().equals("자유게시판")){
+      return "redirect:bboard_free";
+    }else{
+      return "redirect:bboard_health";
+    }
   }
   @GetMapping("/detail")
   public String detail(Model model, @ModelAttribute PageVO pagevo,
@@ -173,23 +207,36 @@ public class BoardController {
   public String deleteboard(@RequestParam String board_sequence) throws Exception {
 //    System.out.println(board_sequence);
     boardService.delBoard(board_sequence);
-    return "redirect:/bboard_all";
+    return "redirect:/bboard_health";
 
   }
   @ResponseBody
   @PostMapping("/like")
-    public HashMap<String,Object> like(@RequestBody LikeVO likeVO){
-        HashMap<String,Object> map = new HashMap<>();
-        likeVO.setLiked(boardService.checkLike(likeVO));
-        int heart= boardService.countHeart(likeVO);
-        map.put("heart",heart);
-        map.put("likeVO",likeVO);
-        return map;
+  public HashMap<String,Object> like(@RequestBody LikeVO likeVO){
+    HashMap<String,Object> map = new HashMap<>();
+    likeVO.setLiked(boardService.checkLike(likeVO));
+    int heart= boardService.countHeart(likeVO);
+    map.put("heart",heart);
+    map.put("likeVO",likeVO);
+    return map;
+  }
+  @ResponseBody
+  @PostMapping("/likecheck")
+  public boolean likecheck(@RequestBody LikeVO likeVO) {
+    return boardService.firstLike(likeVO);
+  }
+
+  @ResponseBody
+  @GetMapping("/listOrderBy")
+  public List<BoardVO> listOrderBy(@RequestBody PageVO pageVO
+          ,@RequestBody HashMap<String,Object> orderInfo) throws Exception {
+    if(pageVO.getPage()==null){
+      pageVO.setPage(1);
     }
-    @ResponseBody
-    @PostMapping("/likecheck")
-    public boolean likecheck(@RequestBody LikeVO likeVO) {
-        return boardService.firstLike(likeVO);
-    }
+
+    String category= (String) orderInfo.get("category");
+    int orderNumber= (int) orderInfo.get("orderBy");
+    return boardService.boardList(pageVO, category, orderNumber);
+  }
 }
 

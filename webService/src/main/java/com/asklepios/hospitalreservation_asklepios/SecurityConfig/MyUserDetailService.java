@@ -3,6 +3,7 @@ package com.asklepios.hospitalreservation_asklepios.SecurityConfig;
 import com.asklepios.hospitalreservation_asklepios.Service.IF_UserService;
 import com.asklepios.hospitalreservation_asklepios.VO.MemberVO;
 import com.asklepios.hospitalreservation_asklepios.VO.UserVO;
+import groovy.util.logging.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.User;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class MyUserDetailService implements UserDetailsService {
   @Autowired
   PasswordEncoder passwordEncoder;

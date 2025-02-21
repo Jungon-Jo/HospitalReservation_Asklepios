@@ -186,6 +186,9 @@
         transform: scale(1.05);
         background: #ff1a1a;
     }
+    #predictModel{
+        cursor: pointer;
+    }
 </style>
 <aside class="quickMenu" style="position: sticky; top: 10px;">
     <div class="bg-blue-500 border border-gray-200 rounded-lg shadow dark:bg-green-800 dark:border-gray-700">
@@ -279,6 +282,12 @@
     <!-- 메시지 아이콘 -->
     <div class="chatIcon" id="chatIcon" onclick="toggleChat()">
         <img src="Img/chatbot.png" class="chatIconSmall" style="margin: 0px; width: 90px; height: 90px;">
+    </div>
+<!--    피부진단모델 호출-->
+    <div>
+        <div id="predictModel" onclick="aiModelPopup()">
+            <span>AI 진단 받아보세요</span>
+        </div>
     </div>
 </aside>
 <!-- 채팅 박스 -->
@@ -490,4 +499,10 @@
             });
         });
     });
+
+    // AI진단모델 팝업창
+    function aiModelPopup(){
+        window.open('http://localhost:8080/asklepios/predict','예측모델',
+            'width=700px,height=800px,scrollbars=yes');
+    }
 </script>

@@ -11,12 +11,15 @@ import java.util.List;
 public interface IF_BoardMapper {
     public void insertOne(BoardVO boardVO);
     public List<BoardVO> selectAll(PageVO pagevo);
-//    public List<BoardVO> selectHealth(PageVO pagevo);
+    //    public List<BoardVO> selectHealth(PageVO pagevo);
 //    public List<BoardVO> selectCampaign(PageVO pagevo);
 //    public List<BoardVO> selectMed(PageVO pagevo);
 //    public List<BoardVO> selectFree(PageVO pagevo);
     public List<BoardVO> selectNotice();
     public List<BoardVO> selectBoard(PageVO pagevo,String category);
+    public List<BoardVO> selectBoardOrderByDate(PageVO pagevo,String category);
+    public List<BoardVO> selectBoardOrderByView(PageVO pagevo,String category);
+    public List<BoardVO> selectBoardOrderByLike(PageVO pagevo,String category);
     public int countBoard(String category);
     public int countAll();
     public BoardVO selectOne(String no);

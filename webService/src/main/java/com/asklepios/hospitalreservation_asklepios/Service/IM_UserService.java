@@ -1,32 +1,40 @@
 package com.asklepios.hospitalreservation_asklepios.Service;
 
 import com.asklepios.hospitalreservation_asklepios.Repository.IF_UserMapper;
+import com.asklepios.hospitalreservation_asklepios.SecurityConfig.MyUserDetailService;
 import com.asklepios.hospitalreservation_asklepios.VO.DoctorVO;
 import com.asklepios.hospitalreservation_asklepios.VO.MemberVO;
 import com.asklepios.hospitalreservation_asklepios.VO.UserVO;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
 public class IM_UserService implements IF_UserService{
     @Autowired
     IF_UserMapper usermapper;
-
+//    @Autowired
+//    MyUserDetailService myUserDetailService;
+//    @Autowired
+//    PasswordEncoder passwordEncoder;
     @Override
     public UserVO login(UserVO userVO) {
         String pwd = usermapper.selectPwd(userVO);
+//        String insertPwd = userVO.getUser_password();
         UserVO uservo;
+        //일반 비밀번호와 암호화된 비밀번호 비교
         if(userVO.getUser_password().equals(pwd)){
             uservo = usermapper.selectUser(userVO);
 //            System.out.println("일치");
         }else{
             uservo = null;
+
 //            System.out.println("불일치");
         }
+
         return uservo;
     }
 
@@ -93,6 +101,7 @@ public class IM_UserService implements IF_UserService{
 
     @Override
     public void addUserCommonInfo(UserVO userVO) {
+//        userVO.setUser_password(passwordEncoder.encode(userVO.getUser_password()));
         usermapper.insertUserCommonInfo(userVO);
     }
 
@@ -115,9 +124,7 @@ public class IM_UserService implements IF_UserService{
     }
 
     @Override
-    public void addUserDoctorInfo(DoctorVO doctorVO) {
-        usermapper.insertUserDoctorInfo(doctorVO);
-    }
+    public void addUserDoctorInfo(DoctorVO doctorVO) {usermapper.insertUserDoctorInfo(doctorVO);}
 
     @Override
     public String checkedPassword(String user_id) {
@@ -160,7 +167,7 @@ public class IM_UserService implements IF_UserService{
     }
 
     @Override
-    public MemberVO  findUser(String user_id) {
+    public MemberVO findUser(String user_id) {
         return usermapper.selectMember(user_id);
     }
 

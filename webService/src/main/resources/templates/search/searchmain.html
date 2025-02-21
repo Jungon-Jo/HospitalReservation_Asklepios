@@ -1005,9 +1005,21 @@
           {
             label: "나이별 방문자 수",
             data: Object.values(data),
-            borderColor: 'rgba(75, 192, 192, 1)', // 선 색상
-            backgroundColor: 'rgba(75, 192, 192, 0.2)', // 선 아래 배경 색상
-            borderWidth:1,
+            backgroundColor: [
+              '#FFB3BA', // 부드러운 핑크
+              '#FFDFD3', // 연한 복숭아색
+              '#D0E4FF', // 연한 하늘색
+              '#FFEBCC', // 연한 노란색
+              '#D8FFB3', // 연한 민트색
+              '#F0D0FF', // 연한 라벤더
+              '#D0FFC6', // 연한 라임색
+              '#F9F9F9'  // 매우 연한 회색
+            ],
+            borderColor: [
+              '#FF5733', '#FF5733', '#33FF57', '#3357FF',
+              '#FFD700', '#FF33A8', '#8E44AD', '#1ABC9C'
+            ],
+            borderWidth: 2 // 경계선 두께 (2px)
           }
         ]
       },

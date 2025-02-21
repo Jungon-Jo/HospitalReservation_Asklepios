@@ -4,6 +4,10 @@ import com.asklepios.hospitalreservation_asklepios.Service.QandAService;
 import com.asklepios.hospitalreservation_asklepios.VO.QuestionVO;
 import com.asklepios.hospitalreservation_asklepios.VO.Question_imgVO;
 import com.asklepios.hospitalreservation_asklepios.VO.QuestionlistVO;
+import org.apache.commons.collections4.MultiValuedMap;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,7 +16,10 @@ import org.springframework.ui.Model;
 import com.asklepios.hospitalreservation_asklepios.Service.IF_UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.Duration;
@@ -174,4 +181,5 @@ public class QandAController {
     }
 
   }
+
 }

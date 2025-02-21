@@ -45,8 +45,16 @@ public class IM_BoardService implements IF_BoardService{
     }
 
     @Override
-    public List<BoardVO> boardList(PageVO pagevo, String category) throws Exception {
-        return boardMapper.selectBoard(pagevo,category);
+    public List<BoardVO> boardList(PageVO pagevo, String category, int orderNumber) throws Exception {
+        if(orderNumber==1){
+            return boardMapper.selectBoardOrderByDate(pagevo,category);
+        }else if(orderNumber==2){
+            return boardMapper.selectBoardOrderByView(pagevo, category);
+        }else if(orderNumber==3){
+            return boardMapper.selectBoardOrderByLike(pagevo,category);
+        }else{
+            return null;
+        }
     }
 
 //    @Override
@@ -87,7 +95,7 @@ public class IM_BoardService implements IF_BoardService{
 
     @Override
     public void modBoard(BoardVO boardVO) {
-      selectCategory(boardVO);
+        selectCategory(boardVO);
 //        System.out.println(boardVO.getBoard_sequence());
 //        System.out.println(boardVO.getBoard_content());
 //        System.out.println(boardVO.getBoard_category());
