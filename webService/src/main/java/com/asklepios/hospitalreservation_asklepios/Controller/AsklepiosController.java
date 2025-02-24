@@ -62,6 +62,9 @@ public class AsklepiosController {
         if (!user.isEmpty()) {
             if (userservice.getAuthority(user)) {
                 System.out.println(Arrays.toString(service.getAnswer_unread(user)));
+                if(service.getAnswer_unread(user).length == 0){
+                    return count;
+                }
                 for (char a : service.getAnswer_unread(user)) {
                     if (a == '0') {
                         count++;

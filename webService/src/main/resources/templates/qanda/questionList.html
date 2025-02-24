@@ -24,12 +24,12 @@
 <div th:replace="~{include/header}"></div>
 <div style="display:flex; width: 1920px; height: 1200px; margin-bottom: 80px;">
   <div style="display: inline-block;" th:replace="~{include/leftAside/qandaAside}"></div>
-  <div class="container3 w-[1200px] h-[1000px] flex">
+  <div class="container3 w-[1260px] h-[1000px] flex" style="margin:30px 30px 0 30px;">
     <!--<div class="nav">
       home>qna
     </div>-->
     <div class="max-w-full mx-auto flex-1">
-      <ul class="w-full max-w-[1200px] space-y-4 overflow-y-auto max-h-screen">
+      <ul class="w-full max-w-[1260px] space-y-4 overflow-y-auto max-h-screen">
         <li class="w-full bg-white shadow-md rounded-lg flex flex-col min-h-[200px] p-6" th:each="item : ${list}">
           <a th:href="@{/show?id={id}(id=${item.id})}" class="block w-full flex flex-col h-full" style="margin-top:-2%;">
             <!-- 제목 -->
