@@ -88,7 +88,7 @@ a {
 /*    margin-right: auto;*/
 /*}*/
 :root {
-    --site-width: 1200px;
+    --site-width: 1260px;
 }
 .con-min-width {
     min-width: var(--site-width);

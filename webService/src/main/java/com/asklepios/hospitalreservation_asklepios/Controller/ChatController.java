@@ -56,4 +56,9 @@ public class ChatController {
             return ResponseEntity.status(500).body("서버 오류 발생");
         }
     }
+
+    @PostMapping("/api/medical/recommend")
+    public String recommendMedical(@RequestBody ChatVO chatVO) {
+        return chatService.recommendDepartment(chatVO.getMainMessage());
+    }
 }
